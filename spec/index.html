@@ -540,7 +540,7 @@ DELETE
  { ?book ?p ?v }
 WHERE
  { ?book dc:date ?date .
-   FILTER ( ?date &gt; "1970-01-01T00:00:00-02:00"^^xsd:dateTime )
+   FILTER ( ?date &lt; "1970-01-01T00:00:00-02:00"^^xsd:dateTime )
    ?book ?p ?v
  }</pre>
             <p>The pattern in <code>WHERE</code> is matched against the Graph Store. The resulting sequence of solutions to the WHERE clause is used to instantiate the triple patterns in the
