@@ -543,7 +543,7 @@ WHERE
    FILTER ( ?date &lt; "1970-01-01T00:00:00-02:00"^^xsd:dateTime )
    ?book ?p ?v
  }</pre>
-            <p>The pattern in <code>WHERE</code> is matched against the Graph Store. The resulting sequence of solutions to the WHERE clause is used to instantiate the triple patterns in the
+            <p>The pattern in <code>WHERE</code> is matched against the Graph Store. The resulting sequence of solutions to the <code>WHERE</code> clause is used to instantiate the triple patterns in the
             <code>DELETE</code> template similar to CONSTRUCT in SPARQL 1.1 Query. The resulting triples are then removed from the Graph Store.</p>
             <p>Data before:</p>
             <pre class="data"><strong># Default graph</strong>
