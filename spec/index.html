@@ -141,9 +141,9 @@
       </ul>
       <p>This document is particularly related to the following other specification documents:</p>
       <ul>
-        <li><a href="http://www.w3.org/TR/sparql11-query/">SPARQL 1.2 Query Language</a></li>
-        <li><a href="http://www.w3.org/TR/sparql11-http-rdf-update/">SPARQL 1.2 Graph Store HTTP Protocol</a></li>
-        <li><a href="http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.2 Protocol for RDF</a></li>
+        <li>[[[SPARQL12-QUERY]]]</li>
+        <li>[[[SPARQL12-GRAPH-STORE-PROTOCOL]]]</li>
+        <li>[[[SPARQL12-PROTOCOL]]]</li>
       </ul>
       <p>SPARQL 1.2 Update is a companion language and envisaged to be used in conjunction with the <em>SPARQL 1.2 Query language</em>. The present document refers to the grammar and several
       definitions from the <em>SPARQL 1.2 Query language</em> specification.</p>
@@ -151,34 +151,34 @@
       simple and well known API, it is necessarily restricted in its operations due to the limited set of methods in the HTTP protocol. In contrast, SPARQL 1.2 Update permits multiple modifications
       in a single operation, and can use complex SPARQL queries for constructing data to be inserted, or choosing data to be deleted. Also, the use of an update language facilitates operations over
       proprietary APIs and connections that may not involve HTTP.</p>
-      <p>The <em>SPARQL 1.2 Protocol for RDF</em> specification describes a means of conveying SPARQL 1.2 Query and SPARQL 1.2 Update operations from clients to a <a href=
-      "http://www.w3.org/TR/sparql11-protocol/#intro">SPARQL query processing service</a>, and for returning appropriate results. Together with the SPARQL 1.2 Query and SPARQL 1.2 Update (this
+      <p>The <em>SPARQL 1.2 Protocol for RDF</em> specification describes a means of conveying SPARQL 1.2 Query and SPARQL 1.2 Update operations from clients to a <a data-cite=
+      "SPARQL12-QUERY#introduction">SPARQL query processing service</a>, and for returning appropriate results. Together with the SPARQL 1.2 Query and SPARQL 1.2 Update (this
       document) specifications, these form an alternative to the <em>SPARQL 1.2 Graph Store HTTP Protocol</em> with comprehensive, though more complex functionality.</p>
       <section id="documentConventions">
         <h3>Document Conventions</h3>
         <section id="languageForm">
           <h4>Language Form</h4>
-          <p>The operations in this document contain language forms describing their use. These are meant as illustrative forms of the formal grammar described in the <a href=
-          "http://www.w3.org/TR/sparql11-query/#sparqlGrammar">SPARQL 1.2 Query</a> document. Any discrepancies between the language forms in this document and the grammar in SPARQL 1.2 Query will
+          <p>The operations in this document contain language forms describing their use. These are meant as illustrative forms of the formal grammar described in the <a data-cite=
+          "SPARQL12-QUERY#sparqlGrammar">SPARQL 1.2 Query</a> document. Any discrepancies between the language forms in this document and the grammar in SPARQL 1.2 Query will
           defer to the formal grammar in SPARQL 1.2 Query.</p>
           <p>Language forms are shown informally in this document as for instance:</p>
-          <pre class="defn">( <strong>WITH</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em>  )?
-( ( <em><a href="http://www.w3.org/TR/sparql11-query/#rDeleteClause">DeleteClause</a> <a href="http://www.w3.org/TR/sparql11-query/#rInsertClause">InsertClause</a></em>? ) | <em><a href=
-"http://www.w3.org/TR/sparql11-query/#rInsertClause">InsertClause</a></em> )
-( <strong>USING</strong> ( <strong>NAMED</strong> )? <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )*
-<strong>WHERE</strong> <code><em><a href="http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern">GroupGraphPattern</a></em></code></pre>
+          <pre class="defn">( <strong>WITH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em>  )?
+( ( <em><a data-cite="SPARQL12-QUERY#rDeleteClause">DeleteClause</a> <a data-cite="SPARQL12-QUERY#rInsertClause">InsertClause</a></em>? ) | <em><a data-cite=
+"SPARQL12-QUERY#rInsertClause">InsertClause</a></em> )
+( <strong>USING</strong> ( <strong>NAMED</strong> )? <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
+<strong>WHERE</strong> <code><em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em></code></pre>
           <p>Unlike other forms of EBNF where square brackets denote optionality, here <code><strong>[]</strong></code> is used for blank nodes, as in SPARQL Query. <code>|</code> is used to denote
           alternatives, <code>()</code> is used for grouping terms, <code>?</code> indicates 0 or 1 occurrence of a term, <code>*</code> indicates 0 or more occurrences, and <code>+</code> indicates
           1 or more occurrences.</p>
-          <p><code><strong>BOLD</strong></code> indicates language keywords. <code><em>Italics</em></code> indicate syntactic items defined in the <a href=
-          "http://www.w3.org/TR/sparql11-query/#sparqlGrammar">SPARQL 1.2 Query Grammar</a>, where we occasionally refer to productions by links. Unitalicized text indicates a local term that will
+          <p><code><strong>BOLD</strong></code> indicates language keywords. <code><em>Italics</em></code> indicate syntactic items defined in the <a data-cite=
+          "SPARQL12-QUERY#sparqlGrammar">SPARQL 1.2 Query Grammar</a>, where we occasionally refer to productions by links. Unitalicized text indicates a local term that will
           have a more complex (and exact) definition in the formal grammar.</p>
           <p>Example update requests are shown as follows:</p>
           <pre class="query">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WHERE {}</pre>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p><code>PREFIX</code> definitions and the <a href="http://www.w3.org/TR/sparql11-query/#QSynIRI">syntax for IRIs</a> in update requests in
-            general follow the same conventions as in the <a href="http://www.w3.org/TR/sparql11-query/">SPARQL 1.2 Query Language</a>.
+            <p class="prefix"><strong>Note:</strong></p><code>PREFIX</code> definitions and the <a data-cite="SPARQL12-QUERY#QSynIRI">syntax for IRIs</a> in update requests in
+            general follow the same conventions as in the [[[SPARQL12-QUERY]]].
           </div>
           <p>Data is shown in Turtle syntax as follows:</p>
           <pre class="data">@prefix dc:   &lt;http://purl.org/dc/elements/1.1/&gt; .
@@ -195,17 +195,16 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
           <ul>
             <li><span class="doc-ref" id="operation">Operation</span> - An action to be performed that results in the modification of data in a <a href="#graphStore">Graph Store</a> expressible as a
             single command, e.g. <a href="#insertData">INSERT</a> or <a href="#deleteData">DELETE</a>.</li>
-            <li><span class="doc-ref" id="request">Request</span> - A sequence of zero or more operations that is sent to a Graph Store. When using the <a href=
-            "http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.2 Protocol for RDF</a> a request will be one HTTP POST.</li>
+            <li><span class="doc-ref" id="request">Request</span> - A sequence of zero or more operations that is sent to a Graph Store. When using the [[[SPARQL12-PROTOCOL]]] a request will be one HTTP POST.</li>
           </ul>
           <p>The following terms are also used in this document as defined in the SPARQL 1.2 Query Language:</p>
           <ul>
-            <li><code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> - A syntactic construct that refers to a set of triple patterns, similar to
-            <code><em><a href="http://www.w3.org/TR/sparql11-query/#rConstructTriples">ConstructTriples</a></em></code>, but potentially involving the <code>GRAPH</code> keyword to indicate that a
+            <li><code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> - A syntactic construct that refers to a set of triple patterns, similar to
+            <code><em><a data-cite="SPARQL12-QUERY#rConstructTriples">ConstructTriples</a></em></code>, but potentially involving the <code>GRAPH</code> keyword to indicate that a
             set of triples is to be inserted into/deleted from a named graph.</li>
-            <li><code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadData">QuadData</a></em></code> - A <code><em><a href=
-            "http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> without variables.</li>
-            <li><code><em><a href="http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern">GroupGraphPattern</a></em></code> - A syntactic construct for referring to a set of triples, possibly with
+            <li><code><em><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></em></code> - A <code><em><a data-cite=
+            "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> without variables.</li>
+            <li><code><em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em></code> - A syntactic construct for referring to a set of triples, possibly with
             complex constraints.</li>
           </ul>
         </section>
@@ -213,8 +212,8 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
     </section>
     <section id="graphStore">
       <h2>The Graph Store</h2>
-      <p>A Graph Store is a mutable container of RDF graphs managed by a single service. Similar to an <a href="http://www.w3.org/TR/sparql11-query/#sparqlDataset">RDF Dataset</a> operated on by the
-      <a href="http://www.w3.org/TR/sparql11-query/">SPARQL 1.2 Query Language</a>, a Graph Store contains one (unnamed) slot holding a <em>default graph</em> and zero or more named slots holding
+      <p>A Graph Store is a mutable container of RDF graphs managed by a single service. Similar to an <a data-cite="SPARQL12-QUERY#sparqlDataset">RDF Dataset</a> operated on by the
+      [[[SPARQL12-QUERY]]], a Graph Store contains one (unnamed) slot holding a <em>default graph</em> and zero or more named slots holding
       <em>named graphs</em>. Operations <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> specify graphs to be modified, or they <em class="rfc2119" title=
       "Keyword in RFC 2119 context">MAY</em> rely on a <em>default graph</em> for that operation. Unless overridden (for instance, by the SPARQL protocol), the unnamed graph for the store will be the
       default graph for any operations on that store. Depending on implementation, the unnamed graph <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> refer to a separate graph, a
@@ -239,7 +238,7 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
         <p>SPARQL 1.2 Update requests are sequences of operations.</p>
         <p>Each request <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be treated atomically by a SPARQL 1.2 Update service. The term 'atomically' means that a single request
         will result in either no effect or a complete effect, regardless of the number of operations that may be present in the request. Any resulting concurrency issues will be a matter for each
-        implementation to consider according to its own architecture. In particular, using the <a href="http://www.w3.org/TR/sparql11-federated-query/#service">SERVICE</a> keyword in the WHERE clause
+        implementation to consider according to its own architecture. In particular, using the <a data-cite="SPARQL12-FEDERATED-QUERY#service">SERVICE</a> keyword in the WHERE clause
         of operations in an Update request will usually result in a loss of atomicity.</p>
         <p>In the case of two different update services, whose respective Graph Stores contain graphs with the same names, there is no presumption that the updates done through one service will be
         propagated to the other, as the stores are independent entities. The behaviour of these services with respect to each other (such as automatic synchronization after updates) is implementation
@@ -247,7 +246,7 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
       </section>
       <section id="entailmentConsistency">
         <h3>Entailment and Consistency</h3>
-        <p>If the store is capable of calculating entailed answers, see <a href="http://www.w3.org/TR/sparql11-entailment/">SPARQL 1.2 Entailment Regimes</a>, then it is possible for update
+        <p>If the store is capable of calculating entailed answers, see [[[SPARQL12-ENTAILMENT]]], then it is possible for update
         operations to interact with entailed data. In particular, a <code>DELETE</code> operation may attempt to remove entailed statements without actual effects.</p>
         <p>After an update request is completed, a store that performs consistency checking with respect to a particular entailment regime on its graphs <em class="rfc2119" title=
         "Keyword in RFC 2119 context">MAY</em> check the new state of the Graph Store for consistency. If inconsistency is detected, such a store <em class="rfc2119" title=
@@ -269,7 +268,7 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
       the same effects as executing them sequentially in the order they appear in the request.</p>
       <p>Operations all result either in <em>success</em> or <em>failure</em>. A <em>failure</em> result <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> be accompanied by extra
       information, indicating that some portion of the operations in the request were successful. This document does not stipulate the exact form of the result, as that will be dependent on the
-      interface being used, for instance the <a href="http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.2 protocol</a> via HTTP or a programmatic API. If multiple operations are present in a single
+      interface being used, for instance the [[[SPARQL12-PROTOCOL]]] via HTTP or a programmatic API. If multiple operations are present in a single
       request, then a result of <em>failure</em> from any operation <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> abort the sequence of operations, causing the subsequent
       operations to be ignored.</p>
       <p>The formal semantics of the following operations is defined in <a href="#formalModel">Section 4</a> of this document.</p>
@@ -292,8 +291,8 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
           "#deleteInsert">DELETE/INSERT</a></code> operation). These actions consist of groups of triples to be deleted and groups of triples to be added. The specification of the triples is based on
           query patterns. The difference between <code>INSERT</code> / <code>DELETE</code> and <code>INSERT DATA</code> / <code>DELETE DATA</code> is that <code>INSERT DATA</code> and <code>DELETE
           DATA</code> do not substitute bindings into a template from a pattern. The <code>DATA</code> forms require concrete data (triple templates containing variables within <code>DELETE
-          DATA</code> and <code>INSERT DATA</code> operations are disallowed and blank nodes are disallowed within <code>DELETE DATA</code>, see Notes 8+9 in the <a href=
-          "http://www.w3.org/TR/sparql11-query/#sparqlGrammar">grammar</a>).&nbsp; Having specific operations for concrete data means that a request can be streamed so that large, pure-data updates
+          DATA</code> and <code>INSERT DATA</code> operations are disallowed and blank nodes are disallowed within <code>DELETE DATA</code>, see Notes 8+9 in the <a data-cite=
+          "SPARQL12-QUERY#sparqlGrammar">grammar</a>).&nbsp; Having specific operations for concrete data means that a request can be streamed so that large, pure-data updates
           can be done.</li>
           <li>The <code><a href="#load">LOAD</a></code> operation reads the contents of a document representing a graph into a graph in the Graph Store.</li>
           <li>The <code><a href="#clear">CLEAR</a></code> operation removes all the triples in (one or more) graphs.</li>
@@ -301,15 +300,15 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
         <section id="insertData">
           <h4>INSERT DATA</h4>
           <p>The <code><a href="#insertData">INSERT DATA</a></code> operation adds some triples, given inline in the request, into the Graph Store:</p>
-          <pre class="defn"><strong>INSERT DATA </strong> <em><code><a href="http://www.w3.org/TR/sparql11-query/#rQuadData">QuadData</a></code></em> 
+          <pre class="defn"><strong>INSERT DATA </strong> <em><code><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></code></em> 
 </pre>
-          <p>where <code><em>QuadData</em></code> are formed by <code><em><a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></em></code>s, i.e., sets of triple
+          <p>where <code><em>QuadData</em></code> are formed by <code><em><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></em></code>s, i.e., sets of triple
           patterns, optionally wrapped into a <code>GRAPH</code> block.</p>
-          <pre class="defn"> <code>( <strong>GRAPH</strong>  <em><a href="http://www.w3.org/TR/sparql11-query/#rVarOrIri">VarOrIri</a></em> )? { <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></em>? }</code>
+          <pre class="defn"> <code>( <strong>GRAPH</strong>  <em><a data-cite="SPARQL12-QUERY#rVarOrIri">VarOrIri</a></em> )? { <em><a data-cite=
+          "SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></em>? }</code>
 </pre>
-          <p>Variables in <code><em>QuadData</em></code>s are disallowed in <code>INSERT DATA</code> requests (see Notes 8 in the <a href=
-          "http://www.w3.org/TR/sparql11-query/#sparqlGrammar">grammar</a>). That is, the <code>INSERT DATA</code> statement only allows to insert ground triples. Blank nodes in
+          <p>Variables in <code><em>QuadData</em></code>s are disallowed in <code>INSERT DATA</code> requests (see Notes 8 in the <a data-cite=
+          "SPARQL12-QUERY#sparqlGrammar">grammar</a>). That is, the <code>INSERT DATA</code> statement only allows to insert ground triples. Blank nodes in
           <code><em>QuadData</em></code>s are assumed to be disjoint from the blank nodes in the Graph Store, i.e., will be inserted with "fresh" blank nodes.</p>
           <p>If no graph is described in the <code><em>QuadData</em></code>, then the default graph is presumed. If data is inserted into a graph that does not exist in the Graph Store, it <em class=
           "rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be created (there may be implementations providing an update service over a fixed set of graphs which in such case <em class=
@@ -365,10 +364,10 @@ INSERT DATA
         <section id="deleteData">
           <h4>DELETE DATA</h4>
           <p>The <code><a href="#deleteData">DELETE DATA</a></code> operation removes some triples, given inline in the request, if the respective graphs in the Graph Store contain those:</p>
-          <pre class="defn"><strong>DELETE DATA </strong> <em><code><a href="http://www.w3.org/TR/sparql11-query/#rQuadData">QuadData</a></code></em> 
+          <pre class="defn"><strong>DELETE DATA </strong> <em><code><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></code></em> 
 </pre>
           <p><code><em>QuadData</em></code> denotes triples to be removed and is as described in <code><a href="#insertData">INSERT DATA</a></code>, with the difference that in a <code>DELETE
-          DATA</code> operation neither variables nor blank nodes are allowed (see Notes 8+9 in the <a href="http://www.w3.org/TR/sparql11-query/#sparqlGrammar">grammar</a>).</p>
+          DATA</code> operation neither variables nor blank nodes are allowed (see Notes 8+9 in the <a data-cite="SPARQL12-QUERY#sparqlGrammar">grammar</a>).</p>
           <p>As with <code>INSERT DATA</code>, <code>DELETE DATA</code> is meant for deletion of ground triples data which is why <code><em>QuadData</em></code> that contains variables or blank nodes
           is disallowed in <code>DELETE DATA</code> operations. The <code><a href="#deleteInsert">DELETE/INSERT</a></code> operation can be used to remove triples containing blank nodes.</p>
           <p>Note that the deletion of non-existing triples has no effect, i.e., triples in the <code><em>QuadData</em></code> that did not exist in the Graph Store are ignored. Blank nodes are not
@@ -423,15 +422,15 @@ INSERT DATA
           <h4>DELETE/INSERT</h4>
           <p>The <code><a href="#deleteInsert">DELETE/INSERT</a></code> operation can be used to remove or add triples from/to the Graph Store based on bindings for a query pattern specified in a
           <code>WHERE</code> clause:</p>
-          <pre class="defn">( <strong>WITH</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )?
-( ( <em><a href="http://www.w3.org/TR/sparql11-query/#rDeleteClause">DeleteClause</a> <a href="http://www.w3.org/TR/sparql11-query/#rInsertClause">InsertClause</a></em>? ) | <em><a href=
-"http://www.w3.org/TR/sparql11-query/#rInsertClause">InsertClause</a></em> )
-( <strong>USING ( NAMED )?</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )*
-<strong>WHERE</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern">GroupGraphPattern</a></em></pre>
+          <pre class="defn">( <strong>WITH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
+( ( <em><a data-cite="SPARQL12-QUERY#rDeleteClause">DeleteClause</a> <a data-cite="SPARQL12-QUERY#rInsertClause">InsertClause</a></em>? ) | <em><a data-cite=
+"SPARQL12-QUERY#rInsertClause">InsertClause</a></em> )
+( <strong>USING ( NAMED )?</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
+<strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em></pre>
           <p>The <em>DeleteClause</em> and <em>InsertClause</em> forms can be broken down as follows:</p>
-          <pre class="defn" id="delete_insert_clause"><em>DeleteClause</em> ::= <strong>DELETE </strong> <code><em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> 
-<em>InsertClause</em> ::= <strong>INSERT </strong> <code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> 
+          <pre class="defn" id="delete_insert_clause"><em>DeleteClause</em> ::= <strong>DELETE </strong> <code><em><a data-cite=
+          "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+<em>InsertClause</em> ::= <strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
 </pre>
           <p>This operation identifies data with the <code>WHERE</code> clause, which will be used to compute solution sequences of bindings for a set of variables. The bindings for each solution are
           then substituted into the <code>DELETE</code> template to remove triples, and then in the <code>INSERT</code> template to create new triples. If any solution produces a triple containing an
@@ -450,20 +449,20 @@ INSERT DATA
           operation only removes data (see <code><a href="#delete">DELETE</a></code>). The grammar does not permit both <code>DELETE</code> and <code>INSERT</code> to be omitted in the same
           operation.</p>
           <p>The <code><span class="doc-ref" id="defUSING">USING</span></code> and
-<code><span class="doc-ref" id="defUSINGNAMED">USING NAMED</span></code> clauses affect the <a href="http://www.w3.org/TR/sparql11-query/#rdfDataset">RDF Dataset</a> used while
-          evaluating the <code>WHERE</code> clause. This describes a dataset in the same way as <code>FROM</code> and <code>FROM NAMED</code> clauses describe <a href=
-          "http://www.w3.org/TR/sparql11-query/#specifyingDataset">RDF Datasets in the SPARQL 1.2 Query Language</a>. The keyword <code>USING</code> instead of <code>FROM</code> in update requests is
-          to avoid possible ambiguities which could arise from writing "<code>DELETE FROM</code>". That is, the <a href=
-          "http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern"><code><em>GroupGraphPattern</em></code></a> in the <code>WHERE</code> clause will be matched against the dataset described by
+<code><span class="doc-ref" id="defUSINGNAMED">USING NAMED</span></code> clauses affect the <a data-cite="SPARQL12-QUERY#rdfDataset">RDF Dataset</a> used while
+          evaluating the <code>WHERE</code> clause. This describes a dataset in the same way as <code>FROM</code> and <code>FROM NAMED</code> clauses describe <a data-cite=
+          "SPARQL12-QUERY#specifyingDataset">RDF Datasets in the SPARQL 1.2 Query Language</a>. The keyword <code>USING</code> instead of <code>FROM</code> in update requests is
+          to avoid possible ambiguities which could arise from writing "<code>DELETE FROM</code>". That is, the <a data-cite=
+          "SPARQL12-QUERY#rGroupGraphPattern"><code><em>GroupGraphPattern</em></code></a> in the <code>WHERE</code> clause will be matched against the dataset described by
           explicit <code>USING</code> or <code>USING NAMED</code> clauses, if specified, and against the Graph Store otherwise.</p>
           <p>The <code>WITH</code> clause provides a convenience for when an operation primarily refers to a single graph. If a graph name is specified in a <code>WITH</code> clause, then - for the
           purposes of evaluating the <code>WHERE</code> clause - this will define an RDF Dataset containing a default graph with the specified name, but only in the absence of <code>USING</code> or
           <code>USING NAMED</code> clauses. In the presence of one or more graphs referred to in <code>USING</code> clauses and/or <code>USING NAMED</code> clauses, the <code>WITH</code> clause will
           be ignored while evaluating the <code>WHERE</code> clause.</p>
-          <p>The <a href="http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern"><code><em>GroupGraphPattern</em></code></a> in the <code>WHERE</code> clause is evaluated as in a SPARQL query
+          <p>The <a data-cite="SPARQL12-QUERY#rGroupGraphPattern"><code><em>GroupGraphPattern</em></code></a> in the <code>WHERE</code> clause is evaluated as in a SPARQL query
           "<code>SELECT * WHERE <em>GroupGraphPattern</em></code>" and all the solution bindings are applied to the preceding <code>DELETE</code> and <code>INSERT</code> templates for defining the
           triples to be deleted from or inserted into the Graph Store.</p>
-          <p>Again, <code><em>QuadPattern</em></code>s are formed by <code><em><a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></em></code>s, i.e., sets of triple
+          <p>Again, <code><em>QuadPattern</em></code>s are formed by <code><em><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></em></code>s, i.e., sets of triple
           patterns, optionally wrapped into a <code>GRAPH</code> block, where the <code>GRAPH</code> clause indicates the named graph in the Graph Store to be updated; on any
           <code><em>TripleTemplate</em></code>s without a <code>GRAPH</code> clause, the <code>INSERT</code> or <code>DELETE</code> clauses applies to the graph specified by the <code>WITH</code>
           clause, or the default graph of the Graph Store if no <code>WITH</code> clause is present.</p>
@@ -475,8 +474,8 @@ INSERT DATA
           one is not explicitly stipulated via <code>GRAPH</code>.</p>
           <p>Deleting triples that are not present, or from a graph that is not present will have no effect and will result in <em>success</em>. Blank nodes are prohibited in a <code>DELETE</code>
           template, since using a new blank node in a <code>DELETE</code> template would lead to nothing being deleted, as a new blank node cannot match anything in the Graph Store. It should be
-          noted that this restriction is not in the EBNF for the <a href="http://www.w3.org/TR/sparql11-query/#rDeleteClause"><code><em>DeleteClause</em></code></a> itself, but made explicit in Note
-          9 to the <a href="http://www.w3.org/TR/sparql11-query/#sparqlGrammar">grammar</a>.</p>
+          noted that this restriction is not in the EBNF for the <a data-cite="SPARQL12-QUERY#rDeleteClause"><code><em>DeleteClause</em></code></a> itself, but made explicit in Note
+          9 to the <a data-cite="SPARQL12-QUERY#sparqlGrammar">grammar</a>.</p>
           <p>If an operation tries to insert into a graph that does not exist, then that graph <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be created; again, there may be
           implementations providing an update service over a fixed set of graphs which in such case <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> return with failure for update
           requests that would create an unallowed graph. If no data is to be inserted, then no graph will be created. Particularly, note that</p>
@@ -484,7 +483,7 @@ INSERT DATA
           <p>does not create &lt;g&gt;. If a user intends to create a graph regardless of the data to be inserted, then the graph management operations (<code><a href=
           "#create">CREATE</a></code>/<code><a href="#create">LOAD</a></code>) may be used prior to any insertion operations.</p>
           <p>Blank nodes that appear in an <code>INSERT</code> clause operate similarly to blank nodes in the template of a <code>CONSTRUCT</code> query, i.e., they are re-instantiated for any
-          solution of the <code>WHERE</code> clause; refer to <a href="http://www.w3.org/TR/sparql11-query/#templatesWithBNodes">Templates with Blank Nodes</a> in SPARQL Query 1.2 and to the <a href=
+          solution of the <code>WHERE</code> clause; refer to <a data-cite="SPARQL12-QUERY#templatesWithBNodes">Templates with Blank Nodes</a> in SPARQL Query 1.2 and to the <a href=
           "#def_deleteinsertoperation">formal semantics of DELETE/INSERT</a> below for details. Blank nodes in the <code>WHERE</code> clause match data in the same way as for any SPARQL Query.</p>
           <p><strong>Example 5:</strong></p>
           <p><span class="doc-ref" id="example_5"></span>An example to update the graph <code>http://example/addresses</code> to rename all people with the given name "Bill" to "William".</p>
@@ -519,10 +518,10 @@ WHERE
 </pre>
           <section id="delete">
             <h5>DELETE (Informative)</h5>
-            <pre class="defn">( <strong>WITH</strong>  <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )?
-<strong>DELETE </strong> <code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> 
-( <strong>USING ( NAMED )?</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )*
-<strong>WHERE</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern">GroupGraphPattern</a></em>
+            <pre class="defn">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
+<strong>DELETE </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+( <strong>USING ( NAMED )?</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
+<strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em>
 </pre>
             <p>The <code>DELETE</code> operation is a form of the <a href="#deleteInsert"><code>DELETE/INSERT</code></a> operation having no <code>INSERT</code> section. A compliant implementation of
             <code>DELETE/INSERT</code> will already implement this operation correctly. The <code>DELETE</code> operation is described here separately for clarity. Analogous to <a href=
@@ -602,10 +601,10 @@ WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
           </section>
           <section id="insert">
             <h5>INSERT (Informative)</h5>
-            <pre class="defn">( <strong>WITH</strong>  <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )?
-<strong>INSERT </strong> <code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> 
-( <strong>USING ( NAMED )?</strong>  <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> )*
-<strong>WHERE</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rGroupGraphPattern">GroupGraphPattern</a></em>
+            <pre class="defn">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
+<strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+( <strong>USING ( NAMED )?</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
+<strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em>
 </pre>
             <p>The <code>INSERT</code> operation is a form of the <a href="#deleteInsert"><code>DELETE/INSERT</code></a> operation having no <code>DELETE</code> section. A compliant implementation of
             <code>DELETE/INSERT</code> will already implement this operation correctly. The <code>INSERT</code> operation is described here separately for clarity.</p>
@@ -777,13 +776,13 @@ WHERE
           </section>
           <section id="deleteWhere">
             <h5>DELETE WHERE</h5>
-            <pre class="defn"><strong>DELETE WHERE </strong> <code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> 
+            <pre class="defn"><strong>DELETE WHERE </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
 </pre>
             <p>The <code>DELETE WHERE</code> operation is a shortcut form for the <a href="#deleteInsert"><code>DELETE/INSERT</code></a> operation where bindings matched by the <code>WHERE</code>
             clause are used to define the triples in a graph that will be deleted. Analogous to <code>DELETE/INSERT</code>, deleting triples that are not present, or from a graph that is not present
             will have no effect and will result in success.</p>
-            <p>The <code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> is used both as a pattern for matching against triples and graphs, and as the
-            template for deletion. If any <code><em>TripleTemplate</em></code>s within the <code><em><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></em></code> appear in
+            <p>The <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> is used both as a pattern for matching against triples and graphs, and as the
+            template for deletion. If any <code><em>TripleTemplate</em></code>s within the <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> appear in
             the scope of a <code>GRAPH</code> clause then this will determine the graph that that template is matched on, and also the graph from which any matching triples will be removed. Any
             <code><em>TripleTemplate</em></code>s not in the scope of a <code>GRAPH</code> clause will be matched against/removed from the default graph.</p>
             <p><strong>Example 11:</strong></p>
@@ -860,8 +859,8 @@ DELETE WHERE {
           title="Keyword in RFC 2119 context">SHOULD</em> be created if required; again, implementations providing an update service over a fixed set of graphs <em class="rfc2119" title=
           "Keyword in RFC 2119 context">MUST</em> return with failure for a request that would create a disallowed graph. If the destination graph already exists, then no data in that graph will be
           removed.</p>
-          <pre class="defn"><strong>LOAD</strong> ( <strong>SILENT</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> ( <strong>INTO GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> )?</pre>
+          <pre class="defn"><strong>LOAD</strong> ( <strong>SILENT</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> ( <strong>INTO GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )?</pre>
           <p><em>IRIref_from</em> specifies the IRI of a document such that a store will be able to identify, locate and read the document. The most common form will be URLs with the <em>http</em>
           IRI schemes. Once the document has been read, the resulting triples will be inserted into the destination graph named by the IRI referred to by <em>IRIref_to</em>.</p>
           <p>If no destination graph IRI (<em>IRIref_to</em>) is provided to load the triples into, then the data will be loaded into the default graph.</p>
@@ -874,8 +873,8 @@ DELETE WHERE {
         <section id="clear">
           <h4>CLEAR</h4>
           <p>The <code>CLEAR</code> operation removes all the triples in the specified graph(s) in the Graph Store.</p>
-          <pre class="defn"><strong>CLEAR</strong>  ( <strong>SILENT</strong> )? (<strong>GRAPH</strong> <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> | <strong>DEFAULT</strong> | <strong>NAMED</strong> | <strong>ALL</strong> )</pre>
+          <pre class="defn"><strong>CLEAR</strong>  ( <strong>SILENT</strong> )? (<strong>GRAPH</strong> <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref</a></em> | <strong>DEFAULT</strong> | <strong>NAMED</strong> | <strong>ALL</strong> )</pre>
           <p>Here, the <code>DEFAULT</code> keyword is used to remove all triples in the default graph of the Graph Store, the <code>NAMED</code> keyword is used to remove all triples in all named
           graphs of the Graph Store and the <code>ALL</code> keyword is used to remove all triples in all graphs of the Graph Store. The <code>GRAPH</code> keyword is used to remove all triples from
           a graph denoted by <code><em>IRIref</em></code>. This operation is not required to remove the empty graphs from the Graph Store, but an implementation <em class="rfc2119" title=
@@ -910,7 +909,7 @@ DELETE WHERE {
         <section id="create">
           <h4>CREATE</h4>
           <p>This operation creates a graph in the Graph Store:</p>
-          <pre class="defn"><strong>CREATE</strong> ( <strong>SILENT</strong> )? <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em></pre>
+          <pre class="defn"><strong>CREATE</strong> ( <strong>SILENT</strong> )? <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em></pre>
           <p>For stores that record empty graphs, this will create a new empty graph in the store with a name specified by the IRI. If the graph already exists, then a <em>failure</em> <em class=
           "rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be returned, except when the <code>SILENT</code> keyword is used; in either case, the contents of already existing graphs remain
           unchanged. If the graph may not be created, then a <em>failure</em> <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> be returned, except when the <code>SILENT</code>
@@ -919,8 +918,8 @@ DELETE WHERE {
         </section>
         <section id="drop">
           <h4>DROP</h4>
-          <pre class="query"><strong>DROP</strong>  ( <strong>SILENT</strong> )? (<strong>GRAPH</strong> <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref</a></em> | <strong>DEFAULT</strong> | <strong>NAMED</strong> | <strong>ALL</strong> )</pre>
+          <pre class="query"><strong>DROP</strong>  ( <strong>SILENT</strong> )? (<strong>GRAPH</strong> <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref</a></em> | <strong>DEFAULT</strong> | <strong>NAMED</strong> | <strong>ALL</strong> )</pre>
           <p>The <code>DROP</code> operation removes the specified graph(s) from the Graph Store. The <code>GRAPH</code> keyword is used to remove a graph denoted by <code><em>IRIref</em></code>, the
           <code>DEFAULT</code> keyword is used to remove the default graph from the Graph Store, the <code>NAMED</code> keyword is used to remove all named graphs from the Graph Store, and the
           <code>ALL</code> keyword is used to remove all graphs from the Graph Store, i.e., resetting the store. After successful completion of this operation, the specified graphs are no longer
@@ -934,15 +933,15 @@ DELETE WHERE {
           <h4>COPY</h4>
           <p>The <code>COPY</code> operation is a shortcut for inserting all data from an input graph into a destination graph. Data from the input graph is not affected, but data from the
           destination graph, if any, is removed before insertion.</p>
-          <pre class="query"><strong>COPY</strong> ( <strong>SILENT</strong> )? ( ( <strong>GRAPH</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>) <strong>TO</strong> ( ( <strong>GRAPH</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong> )</pre>
+          <pre class="query"><strong>COPY</strong> ( <strong>SILENT</strong> )? ( ( <strong>GRAPH</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>) <strong>TO</strong> ( ( <strong>GRAPH</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong> )</pre>
           <p>is similar in operation to:</p>
-          <pre class="query"><strong>DROP</strong> <strong>SILENT</strong> (<strong>GRAPH</strong> <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>);
-      <strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a href=
-"http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a href=
-"http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
+          <pre class="query"><strong>DROP</strong> <strong>SILENT</strong> (<strong>GRAPH</strong> <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>);
+      <strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
+"SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
+"SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
           <p>The difference between <code>COPY</code> and the <code>DROP/INSERT</code> combination is that if <code>COPY</code> is used to copy a graph onto itself then no operation will be performed
           and the data will be left as it was. Using <code>DROP/INSERT</code> in this situation would result in an empty graph.</p>
           <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
@@ -979,15 +978,15 @@ DELETE WHERE {
           <h4>MOVE</h4>
           <p>The <code>MOVE</code> operation is a shortcut for moving all data from an input graph into a destination graph. The input graph is removed after insertion and data from the destination
           graph, if any, is removed before insertion.</p>
-          <pre class="query"><strong>MOVE</strong> (<strong>SILENT</strong>)? ( ( <strong>GRAPH</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>) <strong>TO</strong> ( ( <strong>GRAPH</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>)</pre>
+          <pre class="query"><strong>MOVE</strong> (<strong>SILENT</strong>)? ( ( <strong>GRAPH</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>) <strong>TO</strong> ( ( <strong>GRAPH</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>)</pre>
           <p>is similar in operation to:</p>
-          <pre class="query"><strong>DROP SILENT</strong> (<strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>);
-      <strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a href=
-"http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a href=
-"http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } };
-DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>)</pre>
+          <pre class="query"><strong>DROP SILENT</strong> (<strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>);
+      <strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
+"SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
+"SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } };
+DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>)</pre>
           <p>The difference between <code>MOVE</code> and the <code>DROP/INSERT/DROP</code> combination is that if <code>MOVE</code> is used to move a graph onto itself then no operation will be
           performed and the data will be left as it was. Using <code>DROP/INSERT/DROP</code> in this situation would result in the graph being removed.</p>
           <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
@@ -1022,13 +1021,13 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql1
           <h4>ADD</h4>
           <p>The <code>ADD</code> operation is a shortcut for inserting all data from an input graph into a destination graph. Data from the input graph is not affected, and initial data from the
           destination graph, if any, is kept intact.</p>
-          <pre class="query"><strong>ADD</strong> ( <strong>SILENT</strong> )? ( ( <strong>GRAPH</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>) <strong>TO</strong> ( ( <strong>GRAPH</strong> )? <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>)</pre>
+          <pre class="query"><strong>ADD</strong> ( <strong>SILENT</strong> )? ( ( <strong>GRAPH</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>) <strong>TO</strong> ( ( <strong>GRAPH</strong> )? <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> | <strong>DEFAULT</strong>)</pre>
           <p>is equivalent to:</p>
-          <pre class="query"><strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a href=
-          "http://www.w3.org/TR/sparql11-query/#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
+          <pre class="query"><strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
+          "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
           <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
           <p><strong>Example 15:</strong></p>
@@ -1073,7 +1072,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql1
           <div class="defn">
             <p><strong><span class="doc-ref" id="defn_graphStore">Definition: Graph Store</span></strong></p>
             <p>A Graph Store GS is a mutable container of RDF graphs. It has one unnamed (default) slot and zero or more named slots. The unnamed slot holds an RDF graph; each named slot is a pair of
-            a graph and an associated IRI. The Graph Store can be viewed as a mutable <a href="http://www.w3.org/TR/sparql11-query/#sparqlDataset">RDF Dataset.</a></p>
+            a graph and an associated IRI. The Graph Store can be viewed as a mutable <a data-cite="SPARQL12-QUERY#sparqlDataset">RDF Dataset.</a></p>
             <p>GS = {DG, (iri<sub>1</sub>, G<sub>1</sub>), ... , (iri<sub>n</sub>, G<sub>n</sub>) }</p>
             <p>where</p>
             <ul>
@@ -1103,7 +1102,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql1
       </section>
       <section id="formalModelAuxiliary">
         <h3>Auxiliary Definitions</h3>
-        <p>In the following we present auxiliary functions and basic operations for creating the union, and difference of <a href="http://www.w3.org/TR/sparql11-query/#rdfDataset">RDF Datasets</a>.
+        <p>In the following we present auxiliary functions and basic operations for creating the union, and difference of <a data-cite="SPARQL12-QUERY#rdfDataset">RDF Datasets</a>.
         The concrete update operations will be defined in terms of those basic operations.</p>
         <div class="note">
           <p class="prefix"><strong>Note:</strong></p>In the following definitions, we write 'union', 'intersect' and 'minus' to denote the respective set operations (union, intersection, and set
@@ -1147,12 +1146,12 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql1
           </div>
         </section>
         <section id="def_datasetQuadPattern">
-          <h4>Dataset( <code><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></code>, μ, DS, GS
+          <h4>Dataset( <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, μ, DS, GS
           )</h4>
-          <p>The following auxiliary function constructs an RDF Dataset from a <code><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></code>, given a solution mapping and
+          <p>The following auxiliary function constructs an RDF Dataset from a <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, given a solution mapping and
           an RDF Dataset.</p>
           <div class="defn">
-            <p>Let μ be a <a href="http://www.w3.org/TR/sparql11-query/#sparqlSolutions">solution mapping</a>, DS={DG} union {(iri<sub>i</sub>, G<sub>i</sub>) | 1 ≤ i ≤ n} be an RDF Dataset and GS be
+            <p>Let μ be a <a data-cite="SPARQL12-QUERY#sparqlSolutions">solution mapping</a>, DS={DG} union {(iri<sub>i</sub>, G<sub>i</sub>) | 1 ≤ i ≤ n} be an RDF Dataset and GS be
             the current state of the Graph Store. DS is distinguished from GS as they may differ, for instance, due to the use of <code>USING [NAMED]</code> to modify DS.</p>
             <p>For a <em>QuadPattern</em> of the form</p>
             <ul>
@@ -1161,18 +1160,18 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql1
                 <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) = {{}} i.e., the empty dataset consisting only of an empty default graph.</p>
               </li>
               <li>
-                <p><code><span class="token">'{'</span> <a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a>? <span class="token">'}'</span></code></p>
-                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of only a default graph composed by all <a href="http://www.w3.org/TR/rdf-concepts/#xtocid103646">valid RDF
-                triples</a> obtained from substituting the variables in sk<sub>μ</sub>(<code><a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></code>) according to μ
+                <p><code><span class="token">'{'</span> <a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a>? <span class="token">'}'</span></code></p>
+                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of only a default graph composed by all <a data-cite="RDF11-CONCEPTS#dfn-triple">valid RDF
+                triples</a> obtained from substituting the variables in sk<sub>μ</sub>(<code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code>) according to μ
                 and combining these triples into a single RDF graph by set union.</p>
               </li>
               <li>
-                <p><code><span class="token">'GRAPH'</span> <a href="http://www.w3.org/TR/sparql11-query/#rVarOrIri">VarOrIri</a> <span class="token">'{'</span> <a href=
-                "http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a>? <span class="token">'}'</span></code></p>
-                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of an empty default graph, plus - in case μ(<code><a href=
-                "http://www.w3.org/TR/sparql11-query/#rVarOrIri">VarOrIri</a></code>) yields a valid IRI - a named graph (μ(<code><a href=
-                "http://www.w3.org/TR/sparql11-query/#rVarOrIri">VarOrIri</a></code>), <em>G</em>) such that <em>G</em> is composed by all valid RDF triples obtained from substituting the variables
-                in sk<sub>μ</sub>(<code><a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></code>) according to μ and combining these triples into a single RDF graph
+                <p><code><span class="token">'GRAPH'</span> <a data-cite="SPARQL12-QUERY#rVarOrIri">VarOrIri</a> <span class="token">'{'</span> <a data-cite=
+                "SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a>? <span class="token">'}'</span></code></p>
+                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of an empty default graph, plus - in case μ(<code><a data-cite=
+                "SPARQL12-QUERY#rVarOrIri">VarOrIri</a></code>) yields a valid IRI - a named graph (μ(<code><a data-cite=
+                "SPARQL12-QUERY#rVarOrIri">VarOrIri</a></code>), <em>G</em>) such that <em>G</em> is composed by all valid RDF triples obtained from substituting the variables
+                in sk<sub>μ</sub>(<code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code>) according to μ and combining these triples into a single RDF graph
                 by set union.</p>
               </li>
               <li>
@@ -1180,30 +1179,28 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a href="http://www.w3.org/TR/sparql1
                 <p>Dataset(<em>QuadPattern</em>, μ , DS, GS ) = Dataset-UNION ( Dataset(<em>QuadPattern1</em>, μ, DS, GS ) , Dataset(<em>QuadPattern2</em>, μ, DS, GS ) )</p>
               </li>
             </ul>
-            <p>Here, sk<sub>μ</sub>(<code><a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></code>) stands for replacing any blank nodes occurring in the
-            <code><a href="http://www.w3.org/TR/sparql11-query/#rTriplesTemplate">TriplesTemplate</a></code> with a new, unique blank node (unique to the current update request and to each μ and
+            <p>Here, sk<sub>μ</sub>(<code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code>) stands for replacing any blank nodes occurring in the
+            <code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code> with a new, unique blank node (unique to the current update request and to each μ and
             different from any blank nodes used in DS or in GS).</p>
           </div>
-          <p>The function sk<sub>μ</sub> guarantees that "fresh" blank nodes in the QuadPattern are re-instantiated "per solution" μ (analogous to the <a href=
-          "http://www.w3.org/TR/sparql11-query/#templatesWithBNodes">treatment of blank nodes in <code>CONSTRUCT</code> templates</a> in the <a href="http://www.w3.org/TR/sparql11-query/">SPARQL 1.2
-          Query Language</a>); cf. also the respective <a href="http://www.w3.org/TR/sparql11-query/#grammarBNodes">remarks on scoping of blank nodes within requests in the SPARQL grammar</a>.</p>
+          <p>The function sk<sub>μ</sub> guarantees that "fresh" blank nodes in the QuadPattern are re-instantiated "per solution" μ (analogous to the <a data-cite=
+          "SPARQL12-QUERY#templatesWithBNodes">treatment of blank nodes in <code>CONSTRUCT</code> templates</a> in the [[[SPARQL12-QUERY]]]); cf. also the respective <a data-cite="SPARQL12-QUERY#grammarBNodes">remarks on scoping of blank nodes within requests in the SPARQL grammar</a>.</p>
         </section>
         <section id="def_datasetPattern">
-          <h4>Dataset( <code><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></code>, <em>P</em>, DS, GS
+          <h4>Dataset( <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, <em>P</em>, DS, GS
           )</h4>
-          <p>The following auxiliary function constructs an RDF Dataset from a <code><a href="http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></code>, given a graph pattern and an
+          <p>The following auxiliary function constructs an RDF Dataset from a <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, given a graph pattern and an
           RDF Dataset.</p>
           <div class="defn">
             <p>Let <em>P</em> be a Graph Pattern and DS={DG} union {(iri<sub>i</sub>, G<sub>i</sub>) | 1 ≤ i ≤ n} be an RDF Dataset and GS be the current state of the Graph Store. Then</p>
             <p>Dataset(<em>QuadPattern</em>, <em>P</em>, DS, GS ) = Dataset-UNION( { Dataset(<em>QuadPattern</em>, μ, DS, GS) | μ in <em>eval'</em>(DS(DG),<em>P</em>) } )</p>
             <p>i.e., the union over all μ such that μ is in the solutions of <em>P</em> over dataset DS.</p>
-            <p>Here, <em>eval'</em>() is defined exactly like the evaluation function <a href="http://www.w3.org/TR/sparql11-query/#sparqlAlgebraEval">eval</a>() in the <a href=
-            "http://www.w3.org/TR/sparql11-query/">SPARQL 1.2 Query Language</a>, with the only exception, that - as opposed to the <a href=
-            "http://www.w3.org/TR/sparql11-query/#BGPsparqlBNodes">treatment of blank nodes in BGP matching for SPARQL 1.2 Query</a> - here the <em>scoping graph</em> SG used for BGP matching is equal
+            <p>Here, <em>eval'</em>() is defined exactly like the evaluation function <a data-cite="SPARQL12-QUERY#sparqlAlgebraEval">eval</a>() in the [[[SPARQL12-QUERY]]], with the only exception, that - as opposed to the <a data-cite=
+            "SPARQL12-QUERY#BGPsparqlBNodes">treatment of blank nodes in BGP matching for SPARQL 1.2 Query</a> - here the <em>scoping graph</em> SG used for BGP matching is equal
             to the active graph, i.e., blank nodes from the active graph are preserved in solutions.</p>
           </div>
-          <p>The definition of eval'() guarantees that co-referent blank nodes in DS are not "lost" during pattern evaluation, cf. <a href=
-          "http://www.w3.org/TR/sparql11-query/#BGPsparqlBNodes">Treatment of Blank Nodes</a> in <a href="http://www.w3.org/TR/sparql11-query/">SPARQL 1.2 Query</a>. The latter is necessary to ensure
+          <p>The definition of eval'() guarantees that co-referent blank nodes in DS are not "lost" during pattern evaluation, cf. <a data-cite=
+          "SPARQL12-QUERY#BGPsparqlBNodes">Treatment of Blank Nodes</a> in [[[SPARQL12-QUERY]]]. The latter is necessary to ensure
           that blank nodes in DS can be matched against existing blank nodes in GS to remove/add triples. In order to illustrate matching against existing blank nodes in the Graph Store, the
           following update request removes all triples with blank node as subject.</p>
           <pre class="query">DELETE { ?S ?P ?O . } WHERE { ?S ?P ?O . FILTER ( isBlank(?S)) } </pre>
@@ -1251,8 +1248,8 @@ _:b a foaf:Person .
             <p><strong><span class="doc-ref" id="defn_deleteInsertOperation">Definition: Delete Insert Operation</span></strong></p>
             <p>A <a href="#deleteInsert">Delete Insert Operation</a> OpDeleteInsert is an Update Operation in which (1) triples are deleted from the Graph Store GS, either from the default slot or
             from named slot(s), and then (2) new triples are added in the Graph Store GS, either in the default slot or in named slot(s). Triples to be removed (and inserted, respectively) are
-            identified by applying the pattern solutions for a Group Graph Pattern <em>P</em> against DS to the <code><a href=
-            "http://www.w3.org/TR/sparql11-query/#rQuadPattern">QuadPattern</a></code> <em>QuadPattern</em><sub>DEL</sub> (and <em>QuadPattern</em><sub>INS</sub>, respectively).</p>
+            identified by applying the pattern solutions for a Group Graph Pattern <em>P</em> against DS to the <code><a data-cite=
+            "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code> <em>QuadPattern</em><sub>DEL</sub> (and <em>QuadPattern</em><sub>INS</sub>, respectively).</p>
             <p>OpDeleteInsert(GS, DS, <em>QuadPattern</em><sub>DEL</sub>, <em>QuadPattern</em><sub>INS</sub>, <em>P</em>) = Dataset-UNION(Dataset-DIFF(GS,
             Dataset(<em>QuadPattern</em><sub>DEL</sub>,<em>P</em>,DS,GS)), Dataset(<em>QuadPattern</em><sub>INS</sub>, <em>P</em>,DS,GS)</p>
           </div>
@@ -1428,7 +1425,7 @@ _:b a foaf:Person .
         clauses and is defined as follows:</p>
         <table>
           <caption>
-            Table 2: Mapping <em><a href="http://www.w3.org/TR/sparql11-query/#rUsingClause">UsingClause</a></em>s to RDF Datasets
+            Table 2: Mapping <em><a data-cite="SPARQL12-QUERY#rUsingClause">UsingClause</a></em>s to RDF Datasets
           </caption>
           <tbody>
             <tr>
@@ -1436,7 +1433,7 @@ _:b a foaf:Person .
               <th>Definition</th>
             </tr>
             <tr>
-              <td><em>Tr<sub>Dataset</sub></em>(GS,<em><a href="http://www.w3.org/TR/sparql11-query/#rUsingClause">UsingClause</a></em>*) =</td>
+              <td><em>Tr<sub>Dataset</sub></em>(GS,<em><a data-cite="SPARQL12-QUERY#rUsingClause">UsingClause</a></em>*) =</td>
               <td>
                 <ul>
                   <li>the RDF Dataset DS described by the <em>UsingClause</em>s, if non-empty</li>
@@ -1449,16 +1446,15 @@ _:b a foaf:Person .
         <div class="note">
           <p class="prefix"><strong>Note:</strong></p>How exactly an RDF Dataset is obtained from the <code>USING</code> and <code>USING NAMED</code> clauses (e.g. by dereferencing graph name IRIs
           and trying to retrieve them, or by picking those graphs from the existing Graph Store) is implementation dependent. Particularly, this specification does not mandate any assumptions about
-          blank node identity beyond the consideration for the analogous <code>FROM</code> and <code>FROM NAMED</code> clauses in Section <a href=
-          "http://www.w3.org/TR/sparql11-query/#specifyingDataset">Specifying RDF Datasets</a> of the SPARQL 1.2 Query Language specification.
+          blank node identity beyond the consideration for the analogous <code>FROM</code> and <code>FROM NAMED</code> clauses in Section <a data-cite=
+          "SPARQL12-QUERY#specifyingDataset">Specifying RDF Datasets</a> of the SPARQL 1.2 Query Language specification.
         </div>
       </section>
     </section>
     <section id="conformance">
       <h2>Conformance</h2>
       <p>See <a href="#grammar">appendix B SPARQL 1.2 Update Grammar</a> regarding conformance of SPARQL Update strings.</p>
-      <p>This specification is intended for use in conjunction with: the <a href="http://www.w3.org/TR/sparql11-http-rdf-update/">SPARQL 1.2 Graph Store HTTP Protocol</a> and the <a href=
-      "http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.2 Protocol for RDF</a>.</p>
+      <p>This specification is intended for use in conjunction with: the [[[SPARQL12-GRAPH-STORE-PROTOCOL]]] and the [[[SPARQL12-PROTOCOL]]].</p>
     </section>
     <section id="security-original">
       <h2>Security Considerations (Informative)</h2>
@@ -1530,7 +1526,7 @@ _:b a foaf:Person .
     </section>
     <section id="grammar">
       <h2>SPARQL 1.2 Update Grammar</h2>
-      <p>The formal definition for the SPARQL 1.2 Update grammar is provided with the <a href="http://www.w3.org/TR/sparql11-query/#grammar">SPARQL 1.2 Query grammar</a>. This is because the grammar
+      <p>The formal definition for the SPARQL 1.2 Update grammar is provided with the <a data-cite="SPARQL12-QUERY#grammar">SPARQL 1.2 Query grammar</a>. This is because the grammar
       for SPARQL 1.2 Update shares most of its structure with SPARQL 1.2 Query.</p>
     </section>
     <section id="sec-bibliography">
