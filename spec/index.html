@@ -11,14 +11,14 @@
     <script class="remove">
       // All config options at https://respec.org/docs/
       var respecConfig = {
-        group:                "rdf-star" ,
+        group:                "rdf-star",
         localBiblio:          localBibliography,
         specStatus:           "ED",
         edDraftURI:           "https://w3c.github.io/sparql-update/spec/",
         testSuiteURI:         "https://w3c.github.io/rdf-tests/",
         shortName:            "sparql12-update",
         copyrightStart:       "2012",
-         
+
         github:               "https://github.com/w3c/sparql-update",
         wgPublicList:         "public-rdf-star-wg",
 
@@ -30,7 +30,7 @@
         prevRecShortname:     "sparql11-update",
         previousPublishDate:  "2013-03-21",
         previousMaturity:     "REC",
-        
+
          editors: [
            { name: "Ruben Taelman", w3cid: "84199"},
            { name: "Andy Seaborne", w3cid: "29909"},
@@ -42,18 +42,18 @@
         ],
 
         //doJsonLd:     true,
-        
+
         lint: { "no-unused-dfns": false }
       };
     </script>
-    
+
     <style>
       /* @import url("local.css"); */
       /* Inlined to make preview work */
 
 /* CSS For SPARQL Query */
 
-/* In-progress working draft artifacts - to be removed eventually */
+/* In-progress working draft artifacts — to be removed eventually */
   .issue	{ background-color: #fdd;
                   font-size: 88% ; }
   .add		{ background-color: #7fff7f }
@@ -400,7 +400,7 @@ span.cancast:hover { background-color: #ffa;
           "SPARQL12-QUERY#sparqlGrammar">SPARQL 1.2 Query</a> document. Any discrepancies between the language forms in this document and the grammar in SPARQL 1.2 Query will
           defer to the formal grammar in SPARQL 1.2 Query.</p>
           <p>Language forms are shown informally in this document as for instance:</p>
-          <pre class="defn nohighlight">( <strong>WITH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em>  )?
+          <pre class="defn nohighlight">( <strong>WITH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
 ( ( <em><a data-cite="SPARQL12-QUERY#rDeleteClause">DeleteClause</a> <a data-cite="SPARQL12-QUERY#rInsertClause">InsertClause</a></em>? ) | <em><a data-cite=
 "SPARQL12-QUERY#rInsertClause">InsertClause</a></em> )
 ( <strong>USING</strong> ( <strong>NAMED</strong> )? <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
@@ -413,7 +413,7 @@ span.cancast:hover { background-color: #ffa;
           have a more complex (and exact) definition in the formal grammar.</p>
           <p>Example update requests are shown as follows:</p>
           <pre class="query nohighlight">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
-INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WHERE {}</pre>
+INSERT { &lt;http://example/egbook&gt; dc:title "This is an example title" } WHERE {}</pre>
           <div class="note">
             <p class="prefix"><strong>Note:</strong></p><code>PREFIX</code> definitions and the <a data-cite="SPARQL12-QUERY#QSynIRI">syntax for IRIs</a> in update requests in
             general follow the same conventions as in the [[[SPARQL12-QUERY]]].
@@ -431,18 +431,18 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
           "http://www.faqs.org/rfcs/rfc2119.html">RFC 2119</a> [RFC2119].</p>
           <p>The following terms are also in use throughout this document:</p>
           <ul>
-            <li><span class="doc-ref" id="operation">Operation</span> - An action to be performed that results in the modification of data in a <a href="#graphStore">Graph Store</a> expressible as a
-            single command, e.g. <a href="#insertData">INSERT</a> or <a href="#deleteData">DELETE</a>.</li>
-            <li><span class="doc-ref" id="request">Request</span> - A sequence of zero or more operations that is sent to a Graph Store. When using the [[[SPARQL12-PROTOCOL]]] a request will be one HTTP POST.</li>
+            <li><span class="doc-ref" id="operation">Operation</span> &mdash; An action to be performed that results in the modification of data in a <a href="#graphStore">Graph Store</a> expressible as a
+            single command, e.g., <a href="#insertData">INSERT</a> or <a href="#deleteData">DELETE</a>.</li>
+            <li><span class="doc-ref" id="request">Request</span> &mdash; A sequence of zero or more operations that is sent to a Graph Store. When using the [[[SPARQL12-PROTOCOL]]] a request will be one HTTP POST.</li>
           </ul>
           <p>The following terms are also used in this document as defined in the SPARQL 1.2 Query Language:</p>
           <ul>
-            <li><code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> - A syntactic construct that refers to a set of triple patterns, similar to
+            <li><code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> &mdash; A syntactic construct that refers to a set of triple patterns, similar to
             <code><em><a data-cite="SPARQL12-QUERY#rConstructTriples">ConstructTriples</a></em></code>, but potentially involving the <code>GRAPH</code> keyword to indicate that a
             set of triples is to be inserted into/deleted from a named graph.</li>
-            <li><code><em><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></em></code> - A <code><em><a data-cite=
+            <li><code><em><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></em></code> &mdash; A <code><em><a data-cite=
             "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> without variables.</li>
-            <li><code><em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em></code> - A syntactic construct for referring to a set of triples, possibly with
+            <li><code><em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em></code> &mdash; A syntactic construct for referring to a set of triples, possibly with
             complex constraints.</li>
           </ul>
         </section>
@@ -497,8 +497,8 @@ INSERT { &lt;http://example/egbook&gt; dc:title  "This is an example title" } WH
       <h2>SPARQL 1.2 Update Language</h2>
       <p>SPARQL 1.2 Update supports two categories of update operations on a Graph Store:</p>
       <ul>
-        <li>Graph Update - addition and removal of triples from some graphs within the Graph Store.</li>
-        <li>Graph Management - creating and deletion of graphs within the Graph Store, as well as convenient shortcuts for graph update operations often used during graph management (to add, move,
+        <li>Graph Update &mdash; addition and removal of triples from some graphs within the Graph Store.</li>
+        <li>Graph Management &mdash; creating and deletion of graphs within the Graph Store, as well as convenient shortcuts for graph update operations often used during graph management (to add, move,
         and copy graphs).</li>
       </ul>
       <p>A request is a sequence of operations and is terminated by EOF (End of File). Multiple operations are separated by a ';' (semicolon) character. A semicolon after the last operation in a
@@ -693,8 +693,8 @@ INSERT DATA
           to avoid possible ambiguities which could arise from writing "<code>DELETE FROM</code>". That is, the <a data-cite=
           "SPARQL12-QUERY#rGroupGraphPattern"><code><em>GroupGraphPattern</em></code></a> in the <code>WHERE</code> clause will be matched against the dataset described by
           explicit <code>USING</code> or <code>USING NAMED</code> clauses, if specified, and against the Graph Store otherwise.</p>
-          <p>The <code>WITH</code> clause provides a convenience for when an operation primarily refers to a single graph. If a graph name is specified in a <code>WITH</code> clause, then - for the
-          purposes of evaluating the <code>WHERE</code> clause - this will define an RDF Dataset containing a default graph with the specified name, but only in the absence of <code>USING</code> or
+          <p>The <code>WITH</code> clause provides a convenience for when an operation primarily refers to a single graph. If a graph name is specified in a <code>WITH</code> clause, then &mdash; for the
+          purposes of evaluating the <code>WHERE</code> clause &mdash; this will define an RDF Dataset containing a default graph with the specified name, but only in the absence of <code>USING</code> or
           <code>USING NAMED</code> clauses. In the presence of one or more graphs referred to in <code>USING</code> clauses and/or <code>USING NAMED</code> clauses, the <code>WITH</code> clause will
           be ignored while evaluating the <code>WHERE</code> clause.</p>
           <p>The <a data-cite="SPARQL12-QUERY#rGroupGraphPattern"><code><em>GroupGraphPattern</em></code></a> in the <code>WHERE</code> clause is evaluated as in a SPARQL query
@@ -839,7 +839,7 @@ WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
           </section>
           <section id="insert">
             <h5>INSERT (Informative)</h5>
-            <pre class="defn nohighlight">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
+            <pre class="defn nohighlight">( <strong>WITH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
 <strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
 ( <strong>USING ( NAMED )?</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
 <strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em>
@@ -1156,7 +1156,7 @@ DELETE WHERE {
         </section>
         <section id="drop">
           <h4>DROP</h4>
-          <pre class="query nohighlight"><strong>DROP</strong>  ( <strong>SILENT</strong> )? (<strong>GRAPH</strong> <em><a data-cite=
+          <pre class="query nohighlight"><strong>DROP</strong> ( <strong>SILENT</strong> )? (<strong>GRAPH</strong> <em><a data-cite=
           "SPARQL12-QUERY#rIRIREF">IRIref</a></em> | <strong>DEFAULT</strong> | <strong>NAMED</strong> | <strong>ALL</strong> )</pre>
           <p>The <code>DROP</code> operation removes the specified graph(s) from the Graph Store. The <code>GRAPH</code> keyword is used to remove a graph denoted by <code><em>IRIref</em></code>, the
           <code>DEFAULT</code> keyword is used to remove the default graph from the Graph Store, the <code>NAMED</code> keyword is used to remove all named graphs from the Graph Store, and the
@@ -1311,7 +1311,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
             <p><strong><span class="doc-ref" id="defn_graphStore">Definition: Graph Store</span></strong></p>
             <p>A Graph Store GS is a mutable container of RDF graphs. It has one unnamed (default) slot and zero or more named slots. The unnamed slot holds an RDF graph; each named slot is a pair of
             a graph and an associated IRI. The Graph Store can be viewed as a mutable <a data-cite="SPARQL12-QUERY#sparqlDataset">RDF Dataset.</a></p>
-            <p>GS = {DG, (iri<sub>1</sub>, G<sub>1</sub>), ... , (iri<sub>n</sub>, G<sub>n</sub>) }</p>
+            <p>GS = {DG, (iri<sub>1</sub>, G<sub>1</sub>), ..., (iri<sub>n</sub>, G<sub>n</sub>) }</p>
             <p>where</p>
             <ul>
               <li>the default graph DG is the RDF graph associated with the unnamed slot</li>
@@ -1320,9 +1320,9 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
             </ul>
           </div>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>We will use GS for the Graph Store, but sometimes also - synonymously - for the RDF Dataset corresponding to the current Graph Store content in
+            <p class="prefix"><strong>Note:</strong></p>We will use GS for the Graph Store, but sometimes also &mdash; synonymously &mdash; for the RDF Dataset corresponding to the current Graph Store content in
             subsequent definitions. For convenience, we will also sometimes write GS = {DG} union {(iri<sub>i</sub>, G<sub>i</sub>) | 1 ≤ i ≤ n} as an alternative mathematical notation for GS = {DG,
-            (iri<sub>1</sub>, G<sub>1</sub>), ... , (iri<sub>n</sub>, G<sub>n</sub>) } in subsequent definitions.
+            (iri<sub>1</sub>, G<sub>1</sub>), ..., (iri<sub>n</sub>, G<sub>n</sub>) } in subsequent definitions.
           </div>
         </section>
         <section id="def_updateoperation">
@@ -1363,8 +1363,8 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
             <p>where union between graphs is defined as set-union of triples in those graphs.</p>
           </div>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>Note that, in the following, whenever we write Dataset-UNION( <em>X</em> ) where <em>X</em> = {DS<sub>1</sub>,DS<sub>2</sub>,...
-            ,DS<sub>n</sub>} is a set of datasets, we understand this as a shorthand for Dataset-UNION(DS<sub>1</sub>, Dataset-UNION(DS<sub>2</sub>, ... , Dataset-UNION(DS<sub>n</sub>,{})...)).
+            <p class="prefix"><strong>Note:</strong></p>Note that, in the following, whenever we write Dataset-UNION ( <em>X</em> ) where <em>X</em> = { DS<sub>1</sub>, DS<sub>2</sub>, ...,
+            DS<sub>n</sub> } is a set of datasets, we understand this as a shorthand for Dataset-UNION ( DS<sub>1</sub>, Dataset-UNION ( DS<sub>2</sub>, ..., Dataset-UNION ( DS<sub>n</sub>, {} ) ... ) ).
           </div>
         </section>
         <section id="def_datasetDiff">
@@ -1384,8 +1384,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           </div>
         </section>
         <section id="def_datasetQuadPattern">
-          <h4>Dataset( <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, μ, DS, GS
-          )</h4>
+          <h4>Dataset ( <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, μ, DS, GS )</h4>
           <p>The following auxiliary function constructs an RDF Dataset from a <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, given a solution mapping and
           an RDF Dataset.</p>
           <div class="defn">
@@ -1395,26 +1394,26 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
             <ul>
               <li>
                 <p><code><span class="token">'{}'</span></code></p>
-                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) = {{}} i.e., the empty dataset consisting only of an empty default graph.</p>
+                <p>Dataset ( <em>QuadPattern</em>, μ, DS, GS ) = {{}}, i.e., the empty dataset consisting only of an empty default graph.</p>
               </li>
               <li>
                 <p><code><span class="token">'{'</span> <a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a>? <span class="token">'}'</span></code></p>
-                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of only a default graph composed by all <a data-cite="RDF12-CONCEPTS#dfn-rdf-triple">valid RDF
+                <p>Dataset ( <em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of only a default graph composed by all <a data-cite="RDF12-CONCEPTS#dfn-rdf-triple">valid RDF
                 triples</a> obtained from substituting the variables in sk<sub>μ</sub>(<code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code>) according to μ
                 and combining these triples into a single RDF graph by set union.</p>
               </li>
               <li>
                 <p><code><span class="token">'GRAPH'</span> <a data-cite="SPARQL12-QUERY#rVarOrIri">VarOrIri</a> <span class="token">'{'</span> <a data-cite=
                 "SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a>? <span class="token">'}'</span></code></p>
-                <p>Dataset(<em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of an empty default graph, plus - in case μ(<code><a data-cite=
-                "SPARQL12-QUERY#rVarOrIri">VarOrIri</a></code>) yields a valid IRI - a named graph (μ(<code><a data-cite=
+                <p>Dataset ( <em>QuadPattern</em>, μ, DS, GS ) is the Dataset consisting of an empty default graph, plus &mdash; in case μ(<code><a data-cite=
+                "SPARQL12-QUERY#rVarOrIri">VarOrIri</a></code>) yields a valid IRI &mdash; a named graph (μ(<code><a data-cite=
                 "SPARQL12-QUERY#rVarOrIri">VarOrIri</a></code>), <em>G</em>) such that <em>G</em> is composed by all valid RDF triples obtained from substituting the variables
                 in sk<sub>μ</sub>(<code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code>) according to μ and combining these triples into a single RDF graph
                 by set union.</p>
               </li>
               <li>
                 <p><code><span class="token">'{'</span></code> <em>QuadPattern1</em> <em>QuadPattern2</em> <code><span class="token">'}'</span></code></p>
-                <p>Dataset(<em>QuadPattern</em>, μ , DS, GS ) = Dataset-UNION ( Dataset(<em>QuadPattern1</em>, μ, DS, GS ) , Dataset(<em>QuadPattern2</em>, μ, DS, GS ) )</p>
+                <p>Dataset ( <em>QuadPattern</em>, μ, DS, GS ) = Dataset-UNION ( Dataset ( <em>QuadPattern1</em>, μ, DS, GS ), Dataset ( <em>QuadPattern2</em>, μ, DS, GS ) )</p>
               </li>
             </ul>
             <p>Here, sk<sub>μ</sub>(<code><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></code>) stands for replacing any blank nodes occurring in the
@@ -1425,23 +1424,22 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           "SPARQL12-QUERY#templatesWithBNodes">treatment of blank nodes in <code>CONSTRUCT</code> templates</a> in the [[[SPARQL12-QUERY]]]); cf. also the respective <a data-cite="SPARQL12-QUERY#grammarBNodes">remarks on scoping of blank nodes within requests in the SPARQL grammar</a>.</p>
         </section>
         <section id="def_datasetPattern">
-          <h4>Dataset( <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, <em>P</em>, DS, GS
-          )</h4>
+          <h4>Dataset ( <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, <em>P</em>, DS, GS )</h4>
           <p>The following auxiliary function constructs an RDF Dataset from a <code><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code>, given a graph pattern and an
           RDF Dataset.</p>
           <div class="defn">
             <p>Let <em>P</em> be a Graph Pattern and DS={DG} union {(iri<sub>i</sub>, G<sub>i</sub>) | 1 ≤ i ≤ n} be an RDF Dataset and GS be the current state of the Graph Store. Then</p>
-            <p>Dataset(<em>QuadPattern</em>, <em>P</em>, DS, GS ) = Dataset-UNION( { Dataset(<em>QuadPattern</em>, μ, DS, GS) | μ in <em>eval'</em>(DS(DG),<em>P</em>) } )</p>
+            <p>Dataset ( <em>QuadPattern</em>, <em>P</em>, DS, GS ) = Dataset-UNION ( { Dataset ( <em>QuadPattern</em>, μ, DS, GS ) | μ in <em>eval'</em>( DS ( DG ), <em>P</em> ) } )</p>
             <p>i.e., the union over all μ such that μ is in the solutions of <em>P</em> over dataset DS.</p>
-            <p>Here, <em>eval'</em>() is defined exactly like the evaluation function <a data-cite="SPARQL12-QUERY#sparqlAlgebraEval">eval</a>() in the [[[SPARQL12-QUERY]]], with the only exception, that - as opposed to the <a data-cite=
-            "SPARQL12-QUERY#BGPsparqlBNodes">treatment of blank nodes in BGP matching for SPARQL 1.2 Query</a> - here the <em>scoping graph</em> SG used for BGP matching is equal
+            <p>Here, <em>eval'</em>() is defined exactly like the evaluation function <a data-cite="SPARQL12-QUERY#sparqlAlgebraEval">eval</a>() in the [[[SPARQL12-QUERY]]], with the only exception, that here &mdash; as opposed to the <a data-cite=
+            "SPARQL12-QUERY#BGPsparqlBNodes">treatment of blank nodes in BGP matching for SPARQL 1.2 Query</a> &mdash; the <em>scoping graph</em> SG used for BGP matching is equal
             to the active graph, i.e., blank nodes from the active graph are preserved in solutions.</p>
           </div>
           <p>The definition of eval'() guarantees that co-referent blank nodes in DS are not "lost" during pattern evaluation, cf. <a data-cite=
           "SPARQL12-QUERY#BGPsparqlBNodes">Treatment of Blank Nodes</a> in [[[SPARQL12-QUERY]]]. The latter is necessary to ensure
           that blank nodes in DS can be matched against existing blank nodes in GS to remove/add triples. In order to illustrate matching against existing blank nodes in the Graph Store, the
           following update request removes all triples with blank node as subject.</p>
-          <pre class="query nohighlight">DELETE { ?S ?P ?O . } WHERE { ?S ?P ?O . FILTER ( isBlank(?S)) } </pre>
+          <pre class="query nohighlight">DELETE { ?S ?P ?O . } WHERE { ?S ?P ?O . FILTER ( isBlank ( ?S ) ) }</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
 @prefix :      &lt;http://example.com/&gt; .
@@ -1466,7 +1464,7 @@ _:b a foaf:Person .
             <p><strong><span class="doc-ref" id="defn_insertDataOperation">Definition: Insert Data Operation</span></strong></p>
             <p>A <a href="#insertData">Insert Data Operation</a> is an Update Operation in which new triples, given as a (ground) <em>QuadPattern</em>, are added in the Graph Store GS, in the default
             slot or in named slots.</p>
-            <p>OpInsertData(GS, <em>QuadPattern</em>) = Dataset-UNION(GS, Dataset(<em>QuadPattern</em>,{},GS,GS))</p>
+            <p>OpInsertData(GS, <em>QuadPattern</em>) = Dataset-UNION(GS, Dataset ( <em>QuadPattern</em>, {}, GS, GS ) )</p>
             <p>where {} is the empty solution mapping.</p>
           </div>
         </section>
@@ -1476,7 +1474,7 @@ _:b a foaf:Person .
             <p><strong><span class="doc-ref" id="defn_deleteDataOperation">Definition: Delete Data Operation</span></strong></p>
             <p>A <a href="#deleteData">Delete Data Operation</a> OpDeleteData is an Update Operation in which triples, given as a (ground) <em>QuadPattern</em>, are removed from the Graph Store GS,
             from the default slot or from named slots.</p>
-            <p>OpDeleteData(GS, <em>QuadPattern</em>) = Dataset-DIFF(GS, Dataset(<em>QuadPattern</em>,{},GS,GS))</p>
+            <p>OpDeleteData ( GS, <em>QuadPattern</em>) = Dataset-DIFF ( GS, Dataset ( <em>QuadPattern</em>, {}, GS, GS ) )</p>
             <p>where {} is the empty solution mapping.</p>
           </div>
         </section>
@@ -1488,8 +1486,8 @@ _:b a foaf:Person .
             from named slot(s), and then (2) new triples are added in the Graph Store GS, either in the default slot or in named slot(s). Triples to be removed (and inserted, respectively) are
             identified by applying the pattern solutions for a Group Graph Pattern <em>P</em> against DS to the <code><a data-cite=
             "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></code> <em>QuadPattern</em><sub>DEL</sub> (and <em>QuadPattern</em><sub>INS</sub>, respectively).</p>
-            <p>OpDeleteInsert(GS, DS, <em>QuadPattern</em><sub>DEL</sub>, <em>QuadPattern</em><sub>INS</sub>, <em>P</em>) = Dataset-UNION(Dataset-DIFF(GS,
-            Dataset(<em>QuadPattern</em><sub>DEL</sub>,<em>P</em>,DS,GS)), Dataset(<em>QuadPattern</em><sub>INS</sub>, <em>P</em>,DS,GS)</p>
+            <p>OpDeleteInsert ( GS, DS, <em>QuadPattern</em><sub>DEL</sub>, <em>QuadPattern</em><sub>INS</sub>, <em>P</em>) = Dataset-UNION ( Dataset-DIFF ( GS,
+            Dataset ( <em>QuadPattern</em><sub>DEL</sub>, <em>P</em>, DS, GS ) ), Dataset ( <em>QuadPattern</em><sub>INS</sub>, <em>P</em>, DS, GS )</p>
           </div>
         </section>
         <section id="def_loadoperation">
@@ -1498,8 +1496,8 @@ _:b a foaf:Person .
             <p><strong><span class="doc-ref" id="defn_loadOperation">Definition: Load Operation</span></strong></p>
             <p>A <a href="#load">Load Operation</a> OpLoad is an Update Operation in which new triples (from a remote graph) are added in the Graph Store, either in the default slot or in a named
             slot, if specified.</p>
-            <p>OpLoad(GS, <em>documentIRI</em>) = Dataset-UNION(GS, { graph(<em>documentIRI</em>) } )</p>
-            <p>OpLoad(GS, <em>documentIRI</em>, <em>iri</em>) = Dataset-UNION(GS, { {}, (<em>iri</em>,graph(<em>documentIRI</em>)) } )</p>
+            <p>OpLoad ( GS, <em>documentIRI</em>) = Dataset-UNION ( GS, { graph ( <em>documentIRI</em> ) } )</p>
+            <p>OpLoad ( GS, <em>documentIRI</em>, <em>iri</em> ) = Dataset-UNION(GS, { {}, ( <em>iri</em>, graph ( <em>documentIRI</em> ) ) } )</p>
             <p>where graph(<em>documentIRI</em>) is a function returning the RDF graph serialized by the RDF document retrieved from IRI <em>documentIRI</em>, where blank nodes present in the
             retrieved graph are supposed to be "standardized apart"; i.e., blank nodes from a loaded graph need to be disjoint with the blank nodes already present in the Graph Store GS.</p>
           </div>
@@ -1561,10 +1559,10 @@ _:b a foaf:Person .
         <h3>Mapping Update Requests to the Formal Model</h3>
         <p>In this section we show how to map Update Requests in the SPARQL 1.2. Update Language to Update Operations over the Graph Store as defined earlier in this section. This mapping assumes
         that in all Update requests, any <code>PREFIX</code>es have been expanded. Moreover, we assume that <code>WITH</code> clauses have been replaced by wrapping both the
-        <code><em>QuadPattern</em></code>s in subsequent <code>DELETE</code> and <code>INSERT</code> clauses, and likewise - in the absence of <code>USING</code> and <code>USING NAMED</code> clauses
-        - the <code><em>GroupGraphPattern</em></code> in the subsequent <code>WHERE</code> clause, into <code>GRAPH</code> patterns.</p>
-        <p>The mapping from requests to Update Operations is defined in terms of the recursive translation function <em>Tr</em>(GS,<em>R</em>) which takes the Graphstore GS - as before executing the
-        request - and an update request <em>R</em> as input and exands it to an <a href="#defn_updateOperation">Update Operation</a> call as shown in the following table. The <code><a href=
+        <code><em>QuadPattern</em></code>s in subsequent <code>DELETE</code> and <code>INSERT</code> clauses, and likewise &mdash; in the absence of <code>USING</code> and <code>USING NAMED</code> clauses
+        &mdash; the <code><em>GroupGraphPattern</em></code> in the subsequent <code>WHERE</code> clause, into <code>GRAPH</code> patterns.</p>
+        <p>The mapping from requests to Update Operations is defined in terms of the recursive translation function <em>Tr</em>(GS,<em>R</em>) which takes the Graphstore GS &mdash; as before executing the
+        request &mdash; and an update request <em>R</em> as input and exands it to an <a href="#defn_updateOperation">Update Operation</a> call as shown in the following table. The <code><a href=
         "#copy">COPY</a></code>, <code><a href="#move">MOVE</a></code>, and <code><a href="#add">ADD</a></code> operations are not mentioned explicitly here, since they are understood as
         shortcuts.</p>
         <table>
@@ -1682,7 +1680,7 @@ _:b a foaf:Person .
           </tbody>
         </table>
         <div class="note">
-          <p class="prefix"><strong>Note:</strong></p>How exactly an RDF Dataset is obtained from the <code>USING</code> and <code>USING NAMED</code> clauses (e.g. by dereferencing graph name IRIs
+          <p class="prefix"><strong>Note:</strong></p>How exactly an RDF Dataset is obtained from the <code>USING</code> and <code>USING NAMED</code> clauses (e.g., by dereferencing graph name IRIs
           and trying to retrieve them, or by picking those graphs from the existing Graph Store) is implementation dependent. Particularly, this specification does not mandate any assumptions about
           blank node identity beyond the consideration for the analogous <code>FROM</code> and <code>FROM NAMED</code> clauses in Section <a data-cite=
           "SPARQL12-QUERY#specifyingDataset">Specifying RDF Datasets</a> of the SPARQL 1.2 Query Language specification.
@@ -1776,7 +1774,7 @@ _:b a foaf:Person .
           <dd>(Internet Assigned Numbers Authority) <a href="http://www.iana.org/assignments/character-sets"><cite>Official Names for Character Sets</cite></a>, ed. Keld Simonsen et al. (See
           http://www.iana.org/assignments/character-sets.)</dd>
           <dt class="label"><span class="doc-ref" id="rfc3987"></span>RFC3987</dt>
-          <dd><a href="http://www.ietf.org/rfc/rfc3987.txt"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>, M. Dürst , M. Suignard (See http://www.ietf.org/rfc/rfc3987.txt.)</dd>
+          <dd><a href="http://www.ietf.org/rfc/rfc3987.txt"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>, M. Dürst, M. Suignard (See http://www.ietf.org/rfc/rfc3987.txt.)</dd>
           <dt class="label"><span class="doc-ref" id="RDF-MT"></span>RDF-MT</dt>
           <dd><a href="http://www.w3.org/TR/2004/REC-rdf-mt-20040210/"><cite>RDF Semantics</cite></a>, P. Hayes, Editor, W3C Recommendation, 10 February 2004, see
           http://www.w3.org/TR/2004/REC-rdf-mt-20040210/, <a title="Latest version of RDF Semantics" href="http://www.w3.org/TR/rdf-mt/">Latest version</a> available at http://www.w3.org/TR/rdf-mt/.
@@ -1816,19 +1814,19 @@ _:b a foaf:Person .
           <dd>(International Organization for Standardization). <cite>ISO 639:1988 (E). Code for the representation of names of languages.</cite> [Geneva]: International Organization for
           Standardization, 1988.</dd>
           <dt class="label"><span class="doc-ref" id="ISO3166"></span>ISO 3166</dt>
-          <dd>(International Organization for Standardization). <cite>ISO 3166-1:1997 (E). Codes for the representation of names of countries and their subdivisions — Part 1: Country codes</cite>
+          <dd>(International Organization for Standardization). <cite>ISO 3166-1:1997 (E). Codes for the representation of names of countries and their subdivisions &mdash; Part 1: Country codes</cite>
           [Geneva]: International Organization for Standardization, 1997.</dd>
           <dt class="label"><span class="doc-ref" id="ISO8879"></span>ISO 8879</dt>
-          <dd>ISO (International Organization for Standardization). <cite>ISO 8879:1986(E). Information processing — Text and Office Systems — Standard Generalized Markup Language (SGML).</cite>
-          First edition — 1986-10-15. [Geneva]: International Organization for Standardization, 1986.</dd>
+          <dd>ISO (International Organization for Standardization). <cite>ISO 8879:1986(E). Information processing &mdash; Text and Office Systems &mdash; Standard Generalized Markup Language (SGML).</cite>
+          First edition &mdash; 1986-10-15. [Geneva]: International Organization for Standardization, 1986.</dd>
           <dt class="label"><span class="doc-ref" id="ISO10744"></span>ISO/IEC 10744</dt>
-          <dd>ISO (International Organization for Standardization). <cite>ISO/IEC 10744-1992 (E). Information technology — Hypermedia/Time-based Structuring Language (HyTime).</cite> [Geneva]:
+          <dd>ISO (International Organization for Standardization). <cite>ISO/IEC 10744-1992 (E). Information technology &mdash; Hypermedia/Time-based Structuring Language (HyTime).</cite> [Geneva]:
           International Organization for Standardization, 1992. <em>Extended Facilities Annexe.</em> [Geneva]: International Organization for Standardization, 1996.</dd>
           <dt class="label"><span class="doc-ref" id="UNICODE"></span>UNICODE</dt>
           <dd>The Unicode Consortium. <a href="http://www.unicode.org/unicode/standard/versions/"><cite>The Unicode Standard, Version 5.0.0.</cite></a> Boston, MA, Addison-Wesley, 2007. ISBN
           0-321-48091-0. (See http://www.unicode.org/unicode/standard/versions/.)</dd>
           <dt class="label"><span class="doc-ref" id="websgml"></span>WEBSGML</dt>
-          <dd>ISO (International Organization for Standardization). <a href="http://www.sgmlsource.com/8879/n0029.htm"><cite>ISO 8879:1986 TC2. Information technology — Document Description and
+          <dd>ISO (International Organization for Standardization). <a href="http://www.sgmlsource.com/8879/n0029.htm"><cite>ISO 8879:1986 TC2. Information technology &mdash; Document Description and
           Processing Languages</cite></a>. [Geneva]: International Organization for Standardization, 1998. (See http://www.sgmlsource.com/8879/n0029.htm.)</dd>
           <dt class="label"><span class="doc-ref" id="xml-names"></span>XML Names</dt>
           <dd>Tim Bray, Dave Hollander, and Andrew Layman, editors. <a href="http://www.w3.org/TR/xml-names/"><cite>Namespaces in XML</cite></a>. Textuality, Hewlett-Packard, and Microsoft. World
