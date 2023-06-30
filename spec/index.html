@@ -28,12 +28,12 @@
         previousPublishDate:  "2013-03-21",
         prevRecURI:           "https://www.w3.org/TR/2013/REC-sparql11-update-20130321",
         prevRecShortname:     "sparql11-update",
-        previousPublishDate:  "2013-03-21",
         previousMaturity:     "REC",
-
-         editors: [
+        
+        editors: [
            { name: "Ruben Taelman", w3cid: "84199"},
            { name: "Andy Seaborne", w3cid: "29909"},
+           { name: "Thomas Pellissier Tanon", w3cid: "73758"},
          ],
         formerEditors: [
           { name: "Paula Gearon" },
@@ -415,7 +415,7 @@ span.cancast:hover { background-color: #ffa;
           <pre class="query nohighlight">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 INSERT { &lt;http://example/egbook&gt; dc:title "This is an example title" } WHERE {}</pre>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p><code>PREFIX</code> definitions and the <a data-cite="SPARQL12-QUERY#QSynIRI">syntax for IRIs</a> in update requests in
+            <code>PREFIX</code> definitions and the <a data-cite="SPARQL12-QUERY#QSynIRI">syntax for IRIs</a> in update requests in
             general follow the same conventions as in the [[[SPARQL12-QUERY]]].
           </div>
           <p>Data is shown in Turtle syntax as follows:</p>
@@ -1123,7 +1123,7 @@ DELETE WHERE {
           <pre class="defn nohighlight"># Remove all triples from the graph named with the IRI denoted by <em>IRIref</em>.
 <strong>DELETE</strong> { <strong>GRAPH</strong> <em>IRIref</em> { ?s ?p ?o } } <strong>WHERE</strong> { <strong>GRAPH</strong> <em>IRIref</em> { ?s ?p ?o } }</pre>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>For services which form the default graph from the union of other graphs, <code>CLEAR DEFAULT</code> may have further implications which we
+            For services which form the default graph from the union of other graphs, <code>CLEAR DEFAULT</code> may have further implications which we
             leave unspecified here.
           </div>
           <p>If the store records the existence of empty graphs, then the SPARQL 1.2 Update service, by default, <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> return
@@ -1320,7 +1320,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
             </ul>
           </div>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>We will use GS for the Graph Store, but sometimes also &mdash; synonymously &mdash; for the RDF Dataset corresponding to the current Graph Store content in
+            We will use GS for the Graph Store, but sometimes also &mdash; synonymously &mdash; for the RDF Dataset corresponding to the current Graph Store content in
             subsequent definitions. For convenience, we will also sometimes write GS = {DG} union {(iri<sub>i</sub>, G<sub>i</sub>) | 1 ≤ i ≤ n} as an alternative mathematical notation for GS = {DG,
             (iri<sub>1</sub>, G<sub>1</sub>), ..., (iri<sub>n</sub>, G<sub>n</sub>) } in subsequent definitions.
           </div>
@@ -1343,7 +1343,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
         <p>In the following we present auxiliary functions and basic operations for creating the union, and difference of <a data-cite="SPARQL12-QUERY#rdfDataset">RDF Datasets</a>.
         The concrete update operations will be defined in terms of those basic operations.</p>
         <div class="note">
-          <p class="prefix"><strong>Note:</strong></p>In the following definitions, we write 'union', 'intersect' and 'minus' to denote the respective set operations (union, intersection, and set
+          In the following definitions, we write 'union', 'intersect' and 'minus' to denote the respective set operations (union, intersection, and set
           difference).
         </div>
         <section id="def_datasetUnion">
@@ -1363,7 +1363,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
             <p>where union between graphs is defined as set-union of triples in those graphs.</p>
           </div>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>Note that, in the following, whenever we write Dataset-UNION ( <em>X</em> ) where <em>X</em> = { DS<sub>1</sub>, DS<sub>2</sub>, ...,
+            In the following, whenever we write Dataset-UNION ( <em>X</em> ) where <em>X</em> = { DS<sub>1</sub>, DS<sub>2</sub>, ...,
             DS<sub>n</sub> } is a set of datasets, we understand this as a shorthand for Dataset-UNION ( DS<sub>1</sub>, Dataset-UNION ( DS<sub>2</sub>, ..., Dataset-UNION ( DS<sub>n</sub>, {} ) ... ) ).
           </div>
         </section>
@@ -1517,7 +1517,7 @@ _:b a foaf:Person .
             <p>OpClear<sub>all</sub>(GS) = {{}} union {(iri<sub>i</sub>, {}) | 1 ≤ i ≤ n}</p>
           </div>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>Since Graph Stores may remove graphs that are left empty, for such Graph Stores any Clear Operation performed on a named graph may be viewed as
+            Since Graph Stores may remove graphs that are left empty, for such Graph Stores any Clear Operation performed on a named graph may be viewed as
             immediately followed by a <a href="#defn_dropOperation">Drop Operation</a>, see below.
           </div>
         </section>
@@ -1534,7 +1534,7 @@ _:b a foaf:Person .
             <p>OpCreate(GS, iri) = GS union {(iri, {})} if iri not in graphNames(GS); otherwise, OpCreate(GS, iri) = GS</p>
           </div>
           <div class="note">
-            <p class="prefix"><strong>Note:</strong></p>Since Graph Stores may remove graphs that are left empty, for such Graph Stores any Create Operation performed on an empty or non-existent
+            Since Graph Stores may remove graphs that are left empty, for such Graph Stores any Create Operation performed on an empty or non-existent
             graph may be viewed as implicitly immediately followed by a <a href="#def_dropOperation">Drop Operation</a> (see next subsection), or simply as an operation with no effect.
           </div>
         </section>
@@ -1680,7 +1680,7 @@ _:b a foaf:Person .
           </tbody>
         </table>
         <div class="note">
-          <p class="prefix"><strong>Note:</strong></p>How exactly an RDF Dataset is obtained from the <code>USING</code> and <code>USING NAMED</code> clauses (e.g., by dereferencing graph name IRIs
+          How exactly an RDF Dataset is obtained from the <code>USING</code> and <code>USING NAMED</code> clauses (e.g., by dereferencing graph name IRIs
           and trying to retrieve them, or by picking those graphs from the existing Graph Store) is implementation dependent. Particularly, this specification does not mandate any assumptions about
           blank node identity beyond the consideration for the analogous <code>FROM</code> and <code>FROM NAMED</code> clauses in Section <a data-cite=
           "SPARQL12-QUERY#specifyingDataset">Specifying RDF Datasets</a> of the SPARQL 1.2 Query Language specification.
