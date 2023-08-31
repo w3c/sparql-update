@@ -693,7 +693,7 @@ INSERT DATA
               these quoted triples are not automatically deleted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
               In other words, when executing the <code><a href="#deleteData">DELETE DATA</a></code> operation below,
               the default graph will still contain the triple <code>:bob :age 23</code>
-              if it existed before as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>.
+              if it was previously present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>.
           </p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 DELETE DATA
