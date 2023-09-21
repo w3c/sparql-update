@@ -419,8 +419,8 @@ INSERT { &lt;http://example/egbook&gt; dc:title "This is an example title" } WHE
             general follow the same conventions as in the [[[SPARQL12-QUERY]]].
           </div>
           <p>Data is shown in Turtle syntax as follows:</p>
-          <pre class="data">@prefix dc:   &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix :     &lt;http://example.org/books/&gt; .
+          <pre class="data">PREFIX dc:   &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX :     &lt;http://example.org/books/&gt;
 :book0  dc:title  "SPARQL Tutorial" .</pre>
         </section>
         <section id="terminology">
@@ -538,7 +538,7 @@ INSERT { &lt;http://example/egbook&gt; dc:title "This is an example title" } WHE
         <section id="insertData">
           <h4>INSERT DATA</h4>
           <p>The <code><a href="#insertData">INSERT DATA</a></code> operation adds some triples, given inline in the request, into the Graph Store:</p>
-          <pre class="defn nohighlight"><strong>INSERT DATA </strong> <em><code><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></code></em> 
+          <pre class="defn nohighlight"><strong>INSERT DATA </strong> <em><code><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></code></em>
 </pre>
           <p>where <code><em>QuadData</em></code> are formed by <code><em><a data-cite="SPARQL12-QUERY#rTriplesTemplate">TriplesTemplate</a></em></code>s, i.e., sets of triple
           patterns, optionally wrapped into a <code>GRAPH</code> block.</p>
@@ -560,20 +560,20 @@ INSERT { &lt;http://example/egbook&gt; dc:title "This is an example title" } WHE
           <p>This snippet describes two RDF triples to be inserted into the default graph of the Graph Store.</p>
           <pre class="query nohighlight">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 INSERT DATA
-{ 
+{
   &lt;http://example/book1&gt; dc:title "A new book" ;
                          dc:creator "A.N.Other" .
 }</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix ns: &lt;http://example.org/ns#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX ns: &lt;http://example.org/ns#&gt;
 
 &lt;http://example/book1&gt; ns:price 42 .</pre>
           <p>Data after:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix ns: &lt;http://example.org/ns#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX ns: &lt;http://example.org/ns#&gt;
 
 &lt;http://example/book1&gt; ns:price 42 .
 &lt;http://example/book1&gt; dc:title "A new book" .
@@ -588,13 +588,13 @@ INSERT DATA
 </pre>
           <p>Data before:</p>
           <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 </pre>
           <p>Data after:</p>
           <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix ns: &lt;http://example.org/ns#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX ns: &lt;http://example.org/ns#&gt;
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; ns:price 42 .
 </pre>
@@ -602,7 +602,7 @@ INSERT DATA
         <section id="deleteData">
           <h4>DELETE DATA</h4>
           <p>The <code><a href="#deleteData">DELETE DATA</a></code> operation removes some triples, given inline in the request, if the respective graphs in the Graph Store contain those:</p>
-          <pre class="defn nohighlight"><strong>DELETE DATA </strong> <em><code><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></code></em> 
+          <pre class="defn nohighlight"><strong>DELETE DATA </strong> <em><code><a data-cite="SPARQL12-QUERY#rQuadData">QuadData</a></code></em>
 </pre>
           <p><code><em>QuadData</em></code> denotes triples to be removed and is as described in <code><a href="#insertData">INSERT DATA</a></code>, with the difference that in a <code>DELETE
           DATA</code> operation neither variables nor blank nodes are allowed (see Notes 8+9 in the <a data-cite="SPARQL12-QUERY#sparqlGrammar">grammar</a>).</p>
@@ -621,16 +621,16 @@ DELETE DATA
 }</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix ns: &lt;http://example.org/ns#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX ns: &lt;http://example.org/ns#&gt;
 
 &lt;http://example/book2&gt; ns:price 42 .
 &lt;http://example/book2&gt; dc:title "David Copperfield" .
 &lt;http://example/book2&gt; dc:creator "Edmund Wells" .</pre>
           <p>Data after:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix ns: &lt;http://example.org/ns#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX ns: &lt;http://example.org/ns#&gt;
 
 &lt;http://example/book2&gt; ns:price 42 .</pre>
           <p><strong>Example 4:</strong></p>
@@ -647,12 +647,12 @@ INSERT DATA
 </pre>
           <p>Data before:</p>
           <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Desing" .
 </pre>
           <p>Data after:</p>
           <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 </pre>
         </section>
@@ -667,8 +667,8 @@ INSERT DATA
 <strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em></pre>
           <p>The <em>DeleteClause</em> and <em>InsertClause</em> forms can be broken down as follows:</p>
           <pre class="defn nohighlight" id="delete_insert_clause"><em>DeleteClause</em> ::= <strong>DELETE </strong> <code><em><a data-cite=
-          "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
-<em>InsertClause</em> ::= <strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+          "SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code>
+<em>InsertClause</em> ::= <strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code>
 </pre>
           <p>This operation identifies data with the <code>WHERE</code> clause, which will be used to compute solution sequences of bindings for a set of variables. The bindings for each solution are
           then substituted into the <code>DELETE</code> template to remove triples, and then in the <code>INSERT</code> template to create new triples. If any solution produces a triple containing an
@@ -735,7 +735,7 @@ WHERE
   } </pre>
           <p>Data before:</p>
           <pre class="data"><strong># Graph: http://example/addresses</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/president25&gt; foaf:givenName "Bill" .
 &lt;http://example/president25&gt; foaf:familyName "McKinley" .
@@ -745,7 +745,7 @@ WHERE
 &lt;http://example/president42&gt; foaf:familyName "Clinton" .</pre>
           <p>Data after:</p>
           <pre class="data"><strong># Graph: http://example/addresses</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/president25&gt; foaf:givenName "William" .
 &lt;http://example/president25&gt; foaf:familyName "McKinley" .
@@ -757,7 +757,7 @@ WHERE
           <section id="delete">
             <h5>DELETE (Informative)</h5>
             <pre class="defn nohighlight">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
-<strong>DELETE </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+<strong>DELETE </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code>
 ( <strong>USING ( NAMED )?</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
 <strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em>
 </pre>
@@ -784,7 +784,7 @@ WHERE
             <code>DELETE</code> template similar to CONSTRUCT in SPARQL 1.2 Query. The resulting triples are then removed from the Graph Store.</p>
             <p>Data before:</p>
             <pre class="data"><strong># Default graph</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 
 &lt;http://example/book1&gt; dc:title "Principles of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1977-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -797,7 +797,7 @@ WHERE
 &lt;http://example/book3&gt; dc:title "SPARQL 1.2 Tutorial" .</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Default graph</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 
 &lt;http://example/book2&gt; ns:price 42 .
 &lt;http://example/book2&gt; dc:title "David Copperfield" .
@@ -812,13 +812,13 @@ WHERE
             <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 WITH &lt;http://example/addresses&gt;
-DELETE { ?person ?property ?value } 
-WHERE { ?person ?property ?value ; foaf:givenName 'Fred' } 
-                       
+DELETE { ?person ?property ?value }
+WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
+
 </pre>
             <p>Data before:</p>
             <pre class="data"><strong># Graph: http://example/addresses</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -829,7 +829,7 @@ WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
 &lt;http://example/fred&gt; foaf:mbox  &lt;mailto:fred@example&gt; .</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Graph: http://example/addresses</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -840,7 +840,7 @@ WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
           <section id="insert">
             <h5>INSERT (Informative)</h5>
             <pre class="defn nohighlight">( <strong>WITH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
-<strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+<strong>INSERT </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code>
 ( <strong>USING ( NAMED )?</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )*
 <strong>WHERE</strong> <em><a data-cite="SPARQL12-QUERY#rGroupGraphPattern">GroupGraphPattern</a></em>
 </pre>
@@ -858,7 +858,7 @@ WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
             <pre class="query nohighlight">PREFIX dc:  &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
-INSERT 
+INSERT
   { GRAPH &lt;http://example/bookStore2&gt; { ?book ?p ?v } }
 WHERE
   { GRAPH  &lt;http://example/bookStore&gt;
@@ -868,8 +868,8 @@ WHERE
   } }   </pre>
             <p>Data before:</p>
             <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1977-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -881,13 +881,13 @@ WHERE
 
 &lt;http://example/book3&gt; dc:title "SPARQL 1.2 Tutorial" .</pre>
             <pre class="data"><strong># Graph: http://example/bookStore2</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 
 &lt;http://example/book4&gt; dc:title "SPARQL 1.0 Tutorial" .</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1977-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -899,8 +899,8 @@ WHERE
 
 &lt;http://example/book3&gt; dc:title "SPARQL 1.2 Tutorial" .</pre>
             <pre class="data"><strong># Graph: http://example/bookStore2</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1977-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -912,7 +912,7 @@ WHERE
             <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 
-INSERT 
+INSERT
   { GRAPH &lt;http://example/addresses&gt;
     {
       ?person  foaf:name  ?name .
@@ -926,8 +926,8 @@ WHERE
     } }</pre>
             <p>Data before:</p>
             <pre class="data"><strong># Graph: http://example/people</strong>
-@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-@prefix rdf:  &gt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+PREFIX rdf:  &gt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 
 _:a  rdf:type        foaf:Person .
 _:a  foaf:name       "Alice" .
@@ -936,11 +936,11 @@ _:a  foaf:mbox       &lt;mailto:alice@example.com&gt; .
 _:b  rdf:type        foaf:Person .
 _:b  foaf:name       "Bob" .</pre>
             <pre class="data"><strong># Graph: http://example/addresses</strong>
-@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</pre>
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Graph: http://example/people</strong>
-@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-@prefix rdf:  &gt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+PREFIX rdf:  &gt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 
 _:a  rdf:type        foaf:Person .
 _:a  foaf:name       "Alice" .
@@ -949,7 +949,7 @@ _:a  foaf:mbox       &lt;mailto:alice@example.com&gt; .
 _:b  rdf:type        foaf:Person .
 _:b  foaf:name       "Bob" .</pre>
             <pre class="data"><strong># Graph: http://example/addresses</strong>
-@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
 _:a  foaf:name       "Alice" .
 _:a  foaf:mbox       &lt;mailto:alice@example.com&gt; .
@@ -966,7 +966,7 @@ INSERT
   { GRAPH &lt;http://example/bookStore2&gt; { ?book ?p ?v } }
 WHERE
   { GRAPH  &lt;http://example/bookStore&gt;
-     { ?book dc:date ?date . 
+     { ?book dc:date ?date .
        FILTER ( ?date &lt; "2000-01-01T00:00:00-02:00"^^xsd:dateTime )
        ?book ?p ?v
      }
@@ -978,14 +978,14 @@ DELETE
 WHERE
  { ?book dc:date ?date ;
          dc:type dcmitype:PhysicalObject .
-   FILTER ( ?date &lt; "2000-01-01T00:00:00-02:00"^^xsd:dateTime ) 
+   FILTER ( ?date &lt; "2000-01-01T00:00:00-02:00"^^xsd:dateTime )
    ?book ?p ?v
- } 
+ }
 </pre>
             <p>Data before:</p>
             <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix dcmitype: &lt;http://purl.org/dc/dcmitype/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1996-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -993,18 +993,18 @@ WHERE
 
 &lt;http://example/book3&gt; dc:title "SPARQL 1.2 Tutorial" .</pre>
             <pre class="data"><strong># Graph: http://example/bookStore2</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 
 &lt;http://example/book4&gt; dc:title "SPARQL 1.0 Tutorial" .</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Graph: http://example/bookStore</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix dcmitype: &lt;http://purl.org/dc/dcmitype/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
 
 &lt;http://example/book3&gt; dc:title "SPARQL 1.2 Tutorial" .</pre>
             <pre class="data"><strong># Graph: http://example/bookStore2</strong>
-@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
-@prefix dcmitype: &lt;http://purl.org/dc/dcmitype/&gt; .
+PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
+PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1996-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -1014,7 +1014,7 @@ WHERE
           </section>
           <section id="deleteWhere">
             <h5>DELETE WHERE</h5>
-            <pre class="defn nohighlight"><strong>DELETE WHERE </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> 
+            <pre class="defn nohighlight"><strong>DELETE WHERE </strong> <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code>
 </pre>
             <p>The <code>DELETE WHERE</code> operation is a shortcut form for the <a href="#deleteInsert"><code>DELETE/INSERT</code></a> operation where bindings matched by the <code>WHERE</code>
             clause are used to define the triples in a graph that will be deleted. Analogous to <code>DELETE/INSERT</code>, deleting triples that are not present, or from a graph that is not present
@@ -1032,7 +1032,7 @@ DELETE WHERE { ?person foaf:givenName 'Fred';
 </pre>
             <p>Data before:</p>
             <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -1043,7 +1043,7 @@ DELETE WHERE { ?person foaf:givenName 'Fred';
 &lt;http://example/fred&gt; foaf:mbox  &lt;mailto:fred@example&gt; .</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -1065,7 +1065,7 @@ DELETE WHERE {
 }
 </pre>
             <pre class="data"><strong># Graph: http://example.com/names</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -1073,20 +1073,20 @@ DELETE WHERE {
 &lt;http://example/fred&gt; a foaf:Person .
 &lt;http://example/fred&gt; foaf:givenName "Fred" .</pre>
             <pre class="data"><strong># Graph: http://example.com/addresses</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .
 
 &lt;http://example/fred&gt; foaf:mbox  &lt;mailto:fred@example&gt; .</pre>
             <p>Data after:</p>
             <pre class="data"><strong># Graph: http://example.com/names</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
 </pre>
             <pre class="data"><strong># Graph: http://example.com/addresses</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
           </section>
@@ -1189,7 +1189,7 @@ DELETE WHERE {
           <pre class="query nohighlight">COPY DEFAULT TO &lt;http://example.org/named&gt;</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -1199,13 +1199,13 @@ DELETE WHERE {
 &lt;http://example/fred&gt; foaf:givenName "Fred" .</pre>
           <p>Data after:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
           <pre class="data"><strong># Graph http://example.org/named</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -1234,13 +1234,13 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           <pre class="query nohighlight">MOVE DEFAULT TO &lt;http://example.org/named&gt;</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
           <pre class="data"><strong># Graph http://example.org/named</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/fred&gt; a foaf:Person .
 &lt;http://example/fred&gt; foaf:givenName "Fred" .</pre>
@@ -1248,7 +1248,7 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           <pre class="data"><strong># Default graph</strong>
 </pre>
           <pre class="data"><strong># Graph http://example.org/named</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
@@ -1273,24 +1273,24 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           <pre class="query nohighlight">ADD DEFAULT TO &lt;http://example.org/named&gt;</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
           <pre class="data"><strong># Graph http://example.org/named</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/fred&gt; a foaf:Person .</pre>
           <p>Data after:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
           <pre class="data"><strong># Graph http://example.org/named</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 &lt;http://example/fred&gt; a foaf:Person .
 
@@ -1442,15 +1442,15 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           <pre class="query nohighlight">DELETE { ?S ?P ?O . } WHERE { ?S ?P ?O . FILTER ( isBlank ( ?S ) ) }</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix :      &lt;http://example.com/&gt; .
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX :      &lt;http://example.com/&gt;
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 _:b a foaf:Person .
 :s  a foaf:Person .
 </pre>
           <p>Data after:</p>
           <pre class="data"><strong># Default graph</strong>
-@prefix foaf:  &lt;http://xmlns.com/foaf/0.1/&gt; .
+PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 :s  a foaf:Person .
 </pre>
