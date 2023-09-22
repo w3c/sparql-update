@@ -578,8 +578,8 @@ INSERT DATA
 &lt;http://example/book1&gt; ns:price 42 .
 &lt;http://example/book1&gt; dc:title "A new book" .
 &lt;http://example/book1&gt; dc:creator "A.N.Other" .</pre>
-          <p><strong>Example 2:</strong></p>
-          <p><span class="doc-ref" id="example_2"></span>This SPARQL 1.2 Update request adds a triple to provide the price of a book. As opposed to the previous example, which affected the default graph,
+          <p><strong>Example 2: Adding a triple to a named graph</strong></p>
+          <p><span class="doc-ref" id="example_2"></span>This SPARQL 1.2 Update request adds a triple to provide the price of a book. In contrast to the previous example, which affected the default graph,
           the requested change happens in the named graph identified by the IRI <code>http://example/bookStore</code>.</p>
           <pre class="query nohighlight">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX ns: &lt;http://example.org/ns#&gt;
@@ -598,6 +598,38 @@ INSERT DATA
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; ns:price 42 .
 </pre>
+
+          <p><strong>Example 3: Adding a quoted triple</strong></p>
+          <p><span class="doc-ref" id="example_insert_quoted"></span>
+              When inserting triples containing <a data-cite="RDF12-CONCEPTS#dfn-quoted-triple">quoted triples</a>,
+              these quoted triples are not automatically inserted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+              In other words, when executing the <code><a href="#insertData">INSERT DATA</a></code> operation below,
+              the default graph will <em>not</em> contain the triple <code>:bob :age 23</code>.
+          </p>
+          <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
+INSERT DATA
+{ :alice :claims &lt;&lt; :bob :age 23 &gt;&gt; . }
+</pre>
+          <p>Data before is the empty graph.</p>
+          <p>Data after:</p>
+          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+:alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
+</pre>
+          <p>If a <a data-cite="RDF12-CONCEPTS#dfn-quoted-triple">quoted triple</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
+              then it needs to be explicitly inserted, through an operation like the following <code><a href="#insertData">INSERT DATA</a></code>.</p>
+          <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
+INSERT DATA
+{
+  :alice :claims &lt;&lt; :bob :age 23 &gt;&gt;.
+  :bob :age 23.
+}
+</pre>
+          <p>Data after:</p>
+          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+:alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
+:bob :age 23 .
+</pre>
+
         </section>
         <section id="deleteData">
           <h4>DELETE DATA</h4>
@@ -610,8 +642,8 @@ INSERT DATA
           is disallowed in <code>DELETE DATA</code> operations. The <code><a href="#deleteInsert">DELETE/INSERT</a></code> operation can be used to remove triples containing blank nodes.</p>
           <p>Note that the deletion of non-existing triples has no effect, i.e., triples in the <code><em>QuadData</em></code> that did not exist in the Graph Store are ignored. Blank nodes are not
           permitted in the <code><em>QuadData</em></code>, as these do not match any existing data.</p>
-          <p><strong>Example 3: Removing triples from a graph</strong></p>
-          <p><span class="doc-ref" id="example_3"></span>This request describes 2 triples to be removed from the default graph of the Graph Store.</p>
+          <p><strong>Example 4: Removing triples from a graph</strong></p>
+          <p><span class="doc-ref" id="example_4"></span>This request describes 2 triples to be removed from the default graph of the Graph Store.</p>
           <pre class="query nohighlight">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 
 DELETE DATA
@@ -633,8 +665,8 @@ DELETE DATA
 @prefix ns: &lt;http://example.org/ns#&gt; .
 
 &lt;http://example/book2&gt; ns:price 42 .</pre>
-          <p><strong>Example 4:</strong></p>
-          <p><span class="doc-ref" id="example_4"></span>This SPARQL 1.2 Update request consists of two operations, including a triple to be deleted and a triple to be added (used here to correct a book
+          <p><strong>Example 5: Removing a triple from a named graph</strong></p>
+          <p><span class="doc-ref" id="example_5"></span>This SPARQL 1.2 Update request consists of two operations, including a triple to be deleted and a triple to be added (used here to correct a book
           title). As opposed to the previous example, which affected the default graph, the requested change happens in the named graph identified by the IRI
           <code>http://example/bookStore</code>.</p>
           <pre class="query nohighlight">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
@@ -655,6 +687,39 @@ INSERT DATA
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 </pre>
+
+          <p><strong>Example 6: Removing a quoted triple</strong></p>
+          <p><span class="doc-ref" id="example_delete_quoted"></span>
+              When deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-quoted-triple">quoted triples</a>,
+              these quoted triples are not automatically deleted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+              In other words, when executing the <code><a href="#deleteData">DELETE DATA</a></code> operation below,
+              the default graph will still contain the triple <code>:bob :age 23</code>
+              if it was previously present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>.
+          </p>
+          <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
+DELETE DATA
+{
+  :alice :claims &lt;&lt; :bob :age 23 &gt;&gt;.
+}
+</pre>
+          <p>Data before:</p>
+          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+:alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
+:bob :age 23 .
+</pre>
+          <p>Data after:</p>
+          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+:bob :age 23 .
+</pre>
+          <p>In contrast, deleting an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a> with the request shown below
+             would <em>not</em> delete any triple containing this triple as a <a data-cite="RDF12-CONCEPTS#dfn-quoted-triple">quoted triple</a>.</p>
+          <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
+DELETE DATA
+{
+  :bob :age 23 .
+}
+</pre>
+
         </section>
         <section id="deleteInsert">
           <h4>DELETE/INSERT</h4>
@@ -723,8 +788,8 @@ INSERT DATA
           <p>Blank nodes that appear in an <code>INSERT</code> clause operate similarly to blank nodes in the template of a <code>CONSTRUCT</code> query, i.e., they are re-instantiated for any
           solution of the <code>WHERE</code> clause; refer to <a data-cite="SPARQL12-QUERY#templatesWithBNodes">Templates with Blank Nodes</a> in SPARQL Query 1.2 and to the <a href=
           "#def_deleteinsertoperation">formal semantics of DELETE/INSERT</a> below for details. Blank nodes in the <code>WHERE</code> clause match data in the same way as for any SPARQL Query.</p>
-          <p><strong>Example 5:</strong></p>
-          <p><span class="doc-ref" id="example_5"></span>An example to update the graph <code>http://example/addresses</code> to rename all people with the given name "Bill" to "William".</p>
+          <p><strong>Example 7: Updating a named graph</strong></p>
+          <p><span class="doc-ref" id="example_7"></span>An example to update the graph <code>http://example/addresses</code> to rename all people with the given name "Bill" to "William".</p>
           <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 WITH &lt;http://example/addresses&gt;
@@ -754,6 +819,20 @@ WHERE
 &lt;http://example/president42&gt; foaf:givenName "William" .
 &lt;http://example/president42&gt; foaf:familyName "Clinton" .
 </pre>
+
+          <p><strong>Example 8: Updating quoted triples</strong></p>
+          <p><span class="doc-ref" id="example_update_quoted"></span>
+              Just like with the <code><a href="#insertData">INSERT DATA</a></code> and <code><a href="#deleteData">DELETE DATA</a></code> operations,
+              inserting or deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-quoted-triple">quoted triples</a> does not automatically
+              impact <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+              It is still possible to impact such triples by explicitly asserting them, as shown below.
+          </p>
+          <pre class="query nohighlight">PREFIX :  &lt;http://www.example.org/&gt;
+
+DELETE { :alice ?pp &lt;&lt; ?s ?p ?o &gt;&gt; . }
+INSERT { :carol ?pp &lt;&lt; ?s ?p ?o &gt;&gt; .  ?s ?p ?o .}
+WHERE {  :alice ?pp &lt;&lt; ?s ?p ?o &gt;&gt; . } </pre>
+
           <section id="delete">
             <h5>DELETE (Informative)</h5>
             <pre class="defn nohighlight">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
@@ -768,8 +847,8 @@ WHERE
             <code>WITH</code> clause, if one was specified, or the default graph otherwise.</p>
             <p>The <code>WHERE</code> clause identifies data in existing graphs, and creates bindings to be used by the template. The graphs to apply the <em>GroupGraphPattern</em> follow the same
             rules as for <code>DELETE/INSERT</code>.</p>
-            <p><strong>Example 6:</strong></p>
-            <p><span class="doc-ref" id="example_6"></span>This example request deletes all records of old books (with date before year 1970) from the store's default graph:</p>
+            <p><strong>Example 9:</strong></p>
+            <p><span class="doc-ref" id="example_9"></span>This example request deletes all records of old books (with date before year 1970) from the store's default graph:</p>
             <pre class="query nohighlight">PREFIX dc:  &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
@@ -805,8 +884,8 @@ WHERE
 &lt;http://example/book2&gt; dc:date "1948-01-01T00:00:00-02:00"^^xsd:dateTime .
 
 &lt;http://example/book3&gt; dc:title "SPARQL 1.2 Tutorial" .</pre>
-            <p><strong>Example 7:</strong></p>
-            <p><span class="doc-ref" id="example_7"></span>This example request removes all statements about anything with a given name of "Fred" from the graph <code>http://example/addresses</code>. A
+            <p><strong>Example 10:</strong></p>
+            <p><span class="doc-ref" id="example_10"></span>This example request removes all statements about anything with a given name of "Fred" from the graph <code>http://example/addresses</code>. A
             <code>WITH</code> clause is present, meaning that graph <code>http://example/addresses</code> is both the one from which triples are being removed and the one which the <code>WHERE</code>
             clause is matched against.</p>
             <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
@@ -853,8 +932,8 @@ WHERE { ?person ?property ?value ; foaf:givenName 'Fred' }
             <p>If any instantiation arising from the solution sequence produces a triple containing an unbound variable or an illegal RDF construct, such as a literal in subject or predicate
             position, then that triple is not inserted. The template can contain triples with no variables (known as ground or explicit triples), and these will also be inserted, provided that the
             solution sequence is not empty.</p>
-            <p><strong>Example 8:</strong></p>
-            <p><span class="doc-ref" id="example_8"></span>This example copies triples from one named graph to another named graph based on a pattern:</p>
+            <p><strong>Example 11:</strong></p>
+            <p><span class="doc-ref" id="example_11"></span>This example copies triples from one named graph to another named graph based on a pattern:</p>
             <pre class="query nohighlight">PREFIX dc:  &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
@@ -906,8 +985,8 @@ WHERE
 &lt;http://example/book1&gt; dc:date "1977-01-01T00:00:00-02:00"^^xsd:dateTime .
 
 &lt;http://example/book4&gt; dc:title "SPARQL 1.0 Tutorial" .</pre>
-            <p><strong>Example 9:</strong></p>
-            <p><span class="doc-ref" id="example_9"></span>This example copies triples of name and email from one named graph to another. Some individuals may not have an address, but the name is copied
+            <p><strong>Example 12:</strong></p>
+            <p><span class="doc-ref" id="example_12"></span>This example copies triples of name and email from one named graph to another. Some individuals may not have an address, but the name is copied
             regardless:</p>
             <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
@@ -955,8 +1034,8 @@ _:a  foaf:name       "Alice" .
 _:a  foaf:mbox       &lt;mailto:alice@example.com&gt; .
 
 _:b  foaf:name       "Bob" .</pre>
-            <p><strong>Example 10:</strong></p>
-            <p><span class="doc-ref" id="example_10"></span>This example request first copies triples from one named graph to another named graph based on a pattern; triples about all the copied objects
+            <p><strong>Example 13:</strong></p>
+            <p><span class="doc-ref" id="example_13"></span>This example request first copies triples from one named graph to another named graph based on a pattern; triples about all the copied objects
             that are classified as Physical Objects are then deleted. This demonstrates two operations in a single request, both of which share common <code>PREFIX</code> definitions.</p>
             <pre class="query nohighlight">PREFIX dc:  &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
@@ -1023,8 +1102,8 @@ WHERE
             template for deletion. If any <code><em>TripleTemplate</em></code>s within the <code><em><a data-cite="SPARQL12-QUERY#rQuadPattern">QuadPattern</a></em></code> appear in
             the scope of a <code>GRAPH</code> clause then this will determine the graph that that template is matched on, and also the graph from which any matching triples will be removed. Any
             <code><em>TripleTemplate</em></code>s not in the scope of a <code>GRAPH</code> clause will be matched against/removed from the default graph.</p>
-            <p><strong>Example 11:</strong></p>
-            <p><span class="doc-ref" id="example_11"></span>This example request removes all statements about anything with a given name of "Fred" from the default graph:</p>
+            <p><strong>Example 14:</strong></p>
+            <p><span class="doc-ref" id="example_14"></span>This example request removes all statements about anything with a given name of "Fred" from the default graph:</p>
             <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
 DELETE WHERE { ?person foaf:givenName 'Fred';
@@ -1048,8 +1127,8 @@ DELETE WHERE { ?person foaf:givenName 'Fred';
 &lt;http://example/william&gt; a foaf:Person .
 &lt;http://example/william&gt; foaf:givenName "William" .
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
-            <p><strong>Example 12:</strong></p>
-            <p><span class="doc-ref" id="example_12"></span>This example request removes both statements naming some resource "Fred" in the graph <code>http://example.com/names</code>, and also
+            <p><strong>Example 15:</strong></p>
+            <p><span class="doc-ref" id="example_15"></span>This example request removes both statements naming some resource "Fred" in the graph <code>http://example.com/names</code>, and also
             statements about that resource from the graph <code>http://example/addresses</code> (assuming that some of the resources in the graph <code>http://example.com/names</code> have
             corresponding triples in the graph <code>http://example/addresses</code>).</p>
             <pre class="query nohighlight">PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
@@ -1184,8 +1263,8 @@ DELETE WHERE {
           and the data will be left as it was. Using <code>DROP/INSERT</code> in this situation would result in an empty graph.</p>
           <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
-          <p><strong>Example 13:</strong></p>
-          <p><span class="doc-ref" id="example_13"></span>This example request copies all statements from the default graph to a named graph:</p>
+          <p><strong>Example 16:</strong></p>
+          <p><span class="doc-ref" id="example_16"></span>This example request copies all statements from the default graph to a named graph:</p>
           <pre class="query nohighlight">COPY DEFAULT TO &lt;http://example.org/named&gt;</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
@@ -1229,8 +1308,8 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           performed and the data will be left as it was. Using <code>DROP/INSERT/DROP</code> in this situation would result in the graph being removed.</p>
           <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
-          <p><strong>Example 14:</strong></p>
-          <p><span class="doc-ref" id="example_14"></span>This example request moves all statements from the default graph into a named graph:</p>
+          <p><strong>Example 17:</strong></p>
+          <p><span class="doc-ref" id="example_17"></span>This example request moves all statements from the default graph into a named graph:</p>
           <pre class="query nohighlight">MOVE DEFAULT TO &lt;http://example.org/named&gt;</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
@@ -1268,8 +1347,8 @@ DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF"
           "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
           <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
-          <p><strong>Example 15:</strong></p>
-          <p><span class="doc-ref" id="example_15"></span>This example request adds all statements from the default graph to a named graph:</p>
+          <p><strong>Example 18:</strong></p>
+          <p><span class="doc-ref" id="example_18"></span>This example request adds all statements from the default graph to a named graph:</p>
           <pre class="query nohighlight">ADD DEFAULT TO &lt;http://example.org/named&gt;</pre>
           <p>Data before:</p>
           <pre class="data"><strong># Default graph</strong>
