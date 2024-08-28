@@ -612,7 +612,7 @@ INSERT DATA
 </pre>
           <p>Data before is the empty graph.</p>
           <p>Data after:</p>
-          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
 :alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
 </pre>
           <p>If a <a data-cite="RDF12-CONCEPTS#dfn-quoted-triple">quoted triple</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
@@ -625,7 +625,7 @@ INSERT DATA
 }
 </pre>
           <p>Data after:</p>
-          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
 :alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
 :bob :age 23 .
 </pre>
@@ -703,12 +703,12 @@ DELETE DATA
 }
 </pre>
           <p>Data before:</p>
-          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
 :alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
 :bob :age 23 .
 </pre>
           <p>Data after:</p>
-          <pre class="data">@prefix : &lt;http://www.example.org/&gt; .
+          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
 :bob :age 23 .
 </pre>
           <p>In contrast, deleting an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a> with the request shown below
