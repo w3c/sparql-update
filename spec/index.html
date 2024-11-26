@@ -1164,23 +1164,66 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 &lt;http://example/william&gt; foaf:mbox  &lt;mailto:bill@example&gt; .</pre>
           </section>
         </section>
+
         <section id="load">
           <h4>LOAD</h4>
-          <p>The <code>LOAD</code> operation reads an RDF document from a IRI and inserts its triples into the specified graph in the Graph Store.
-            The specified destination graph SHOULD be created if required; again, implementations providing an update service over a fixed set of
-            graphs MUST return with failure for a request that would create a disallowed graph. If the destination graph already exists, then no data in that graph will be
-            removed.</p>
-          <pre class="defn nohighlight"><strong>LOAD</strong> ( <strong>SILENT</strong> )? <em><a data-cite=
-          "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> ( <strong>INTO GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )?</pre>
-          <p><em>IRIref_from</em> specifies the IRI of a document such that a store will be able to identify, locate and read the document. The most common form will be URLs with the <em>http</em>
-          IRI schemes. Once the document has been read, the resulting triples will be inserted into the destination graph named by the IRI referred to by <em>IRIref_to</em>.</p>
-          <p>If no destination graph IRI (<em>IRIref_to</em>) is provided to load the triples into, then the data will be loaded into the default graph.</p>
-          <p>In case no RDF data can be retrieved (as opposed to the empty graph being retrieved) from the IRI denoted by <em>IRIref_from</em>, or in case the retrieval method returns an error (such
-          as, for instance an HTTP error code), the SPARQL 1.2 Update service SHOULD return failure and the status of the Graph Store
-          SHOULD remain in the same status as prior to the request; in case the keyword SILENT is present, however, the operation will
-          still return success and the status of the Graph Store is not specified by the present document: implementations may create the destination graph or not and partially load data, in case of
-          a transmission error where partial data has been received (which itself may be legal RDF).</p>
+          <p>
+            The `LOAD` operation reads an RDF document from a IRI and inserts triples
+            into the graphs of the dataset in the  <a href="#defn_graphStore">Graph Store</a>.
+          </p>
+
+          <pre class="defn nohighlight"><strong>LOAD</strong> ( <strong>SILENT</strong> )? <em><a
+            data-cite="SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> ( <strong>INTO GRAPH</strong> <em><a
+            data-cite="SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )?</pre>
+
+          <p><em>IRIref_from</em> specifies the IRI of a document such that a store will be able to
+            identify, locate and read the document. The most common form of IRIs will be URLs with
+            the https and http IRI schemes.
+          </p>
+
+          <p>If a destination graph (<i>IRIref_to</i>) is specified by `INTO GRAPH`, then the
+            specified destination graph SHOULD be created if required; again, implementations
+            providing an update service over a fixed set of graphs MUST return with failure for a
+            request that would create a disallowed graph. If the destination graph already exists,
+            then no data in that graph will be removed. 
+            The RDF document is retrieved and parsed to produce an
+            <a data-cite="RDF12-CONCEPTS#dfn-rdf-graph">RDF Graph</a>.
+            This graph is
+            <a data-cite="RDF12-SEMANTICS#dfn-merging">merged</a> into the destination
+            graph in the graph store..
+          </p>
+          <p>
+            If no destination graph IRI is specified by `INTO`, then the RDF document is retrived
+            and parsed into an <a data-cite="RDF12-CONCEPTS#dfn-rdf-dataset">RDF Dataset</a>. 
+            This dataset is <a data-cite="RDF12-SEMANTICS#dfn-rdf-dataset-merge">merged</a> into the
+            <a href="#defn_graphStore">graph store</a> viewed as a mutable
+            <a data-cite="SPARQL12-QUERY#sparqlDataset">RDF Dataset</a>.
+          </p>
+
+          <p>
+            In the case where no RDF data can be retrieved (as opposed to the empty graph being retrieved)
+            from the IRI denoted by <em>IRIref_from</em>, or in case the retrieval method returns an
+            error (such as, for instance an HTTP error code), the SPARQL 1.2 Update service SHOULD
+            return failure and the status of the Graph Store SHOULD remain in the same status as
+            prior to the request; in case the keyword `SILENT` is present, however, the
+            operation will still return success and the status of the Graph Store is not specified
+            by the present document: implementations may create the destination graph or not and
+            partially load data, in case of a transmission error where partial data has been
+            received (which itself may be legal RDF).
+          </p>
+
+          <div class="note" id="context-triples">
+            <p>
+              Some RDF syntaxes, such as [[[JSON-LD11]]], is often used for data which
+              is a single graph, with no graph name. [[[RDF12-N-QUADS]]] may be used as a
+              database dump format for a triple store with the data only in the default graph.
+              In both cases, this is not known until the entire RDF document content is parsed. 
+              When the `LOAD` operation has an `INTO GRAPH` clause, it is an error if
+              named graphs are encountered.
+            </p>
+          </div>
         </section>
+
         <section id="clear">
           <h4>CLEAR</h4>
           <p>The <code>CLEAR</code> operation removes all the triples in the specified graph(s) in the Graph Store.</p>
