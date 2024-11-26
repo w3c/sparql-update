@@ -340,9 +340,6 @@ span.cancast:hover { background-color: #ffa;
   div.exampleHeader { font-weight: bold;
                     margin: 4px}
 
-  em.rfc2119 { text-transform: lowercase;
-             font-variant: small-caps;
-             font-style: normal; }
     </style>
   </head>
   <body>
@@ -429,10 +426,8 @@ PREFIX :     &lt;http://example.org/books/&gt;
         </section>
         <section id="terminology">
           <h4>Terminology</h4>
-          <p>When this document uses the words <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em>, <em class="rfc2119" title="Keyword in RFC 2119 context">MUST NOT</em>, <em class=
-          "rfc2119" title="Keyword in RFC 2119 context">SHOULD</em>, <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD NOT</em>, <em class="rfc2119" title=
-          "Keyword in RFC 2119 context">MAY</em> and <strong>recommended</strong>, and the words appear as emphasized text, they must be interpreted as described in <a href=
-          "http://www.faqs.org/rfcs/rfc2119.html">RFC 2119</a> [RFC2119].</p>
+          <p>When this document uses the words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY, and the words appear as emphasized text, they must be interpreted as described
+            in [[RFC2119]].</p>
           <p>The following terms are also in use throughout this document:</p>
           <ul>
             <li><span class="doc-ref" id="operation">Operation</span> &mdash; An action to be performed that results in the modification of data in a <a href="#graphStore">Graph Store</a> expressible as a
@@ -456,9 +451,9 @@ PREFIX :     &lt;http://example.org/books/&gt;
       <h2>The Graph Store</h2>
       <p>A Graph Store is a mutable container of RDF graphs managed by a single service. Similar to an <a data-cite="SPARQL12-QUERY#sparqlDataset">RDF Dataset</a> operated on by the
       [[[SPARQL12-QUERY]]], a Graph Store contains one (unnamed) slot holding a <em>default graph</em> and zero or more named slots holding
-      <em>named graphs</em>. Operations <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> specify graphs to be modified, or they <em class="rfc2119" title=
-      "Keyword in RFC 2119 context">MAY</em> rely on a <em>default graph</em> for that operation. Unless overridden (for instance, by the SPARQL protocol), the unnamed graph for the store will be the
-      default graph for any operations on that store. Depending on implementation, the unnamed graph <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> refer to a separate graph, a
+      <em>named graphs</em>. Operations MAY specify graphs to be modified, or they MAY rely on a <em>default graph</em>
+      for that operation. Unless overridden (for instance, by the SPARQL protocol), the unnamed graph for the store will be the
+      default graph for any operations on that store. Depending on implementation, the unnamed graph MAY refer to a separate graph, a
       graph describing the named graphs, a representation of a union of other graphs, etc.</p>
       <p>Unlike an RDF Dataset, named graphs can be added to or deleted from a Graph Store. A Graph Store needs not be authoritative for the graphs it contains. That means a Graph Store can keep
       local copies of RDF graphs defined elsewhere on the Web and modify those copies independently of the original graph.</p>
@@ -470,15 +465,15 @@ PREFIX :     &lt;http://example.org/books/&gt;
       <section id="graphStoreQueryServices">
         <h3>Graph Store and SPARQL Query Services</h3>
         <p>A service (often referred to by the informal term <em>SPARQL endpoint</em>) that accepts and processes update requests is referred to as an <em>update service</em>. There is no presumption
-        that the Graph Store managed by an update service exactly corresponds to any RDF Dataset offered by some query service. A query service <em class="rfc2119" title=
-        "Keyword in RFC 2119 context">MAY</em> offer an RDF Dataset formed from graphs that are part of an update service's Graph Store. The graphs in the query service's RDF Dataset <em class=
-        "rfc2119" title="Keyword in RFC 2119 context">MAY</em> be a subset of the graphs in the update service's Graph Store. Furthermore, the query service's RDF Dataset and the update service's
-        Graph Store <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> use different names for the same graphs.</p>
+        that the Graph Store managed by an update service exactly corresponds to any RDF Dataset offered by some query service.
+          A query service MAY offer an RDF Dataset formed from graphs that are part of an update service's Graph Store. The graphs in the query service's
+          RDF Dataset MAY be a subset of the graphs in the update service's Graph Store. Furthermore, the query service's RDF Dataset and the update service's
+        Graph Store MAY use different names for the same graphs.</p>
       </section>
       <section id="updateServices">
         <h3>SPARQL 1.2 Update Services</h3>
         <p>SPARQL 1.2 Update requests are sequences of operations.</p>
-        <p>Each request <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be treated atomically by a SPARQL 1.2 Update service. The term 'atomically' means that a single request
+        <p>Each request SHOULD be treated atomically by a SPARQL 1.2 Update service. The term 'atomically' means that a single request
         will result in either no effect or a complete effect, regardless of the number of operations that may be present in the request. Any resulting concurrency issues will be a matter for each
         implementation to consider according to its own architecture. In particular, using the <a data-cite="SPARQL12-FEDERATED-QUERY#service">SERVICE</a> keyword in the WHERE clause
         of operations in an Update request will usually result in a loss of atomicity.</p>
@@ -490,9 +485,8 @@ PREFIX :     &lt;http://example.org/books/&gt;
         <h3>Entailment and Consistency</h3>
         <p>If the store is capable of calculating entailed answers, see [[[SPARQL12-ENTAILMENT]]], then it is possible for update
         operations to interact with entailed data. In particular, a <code>DELETE</code> operation may attempt to remove entailed statements without actual effects.</p>
-        <p>After an update request is completed, a store that performs consistency checking with respect to a particular entailment regime on its graphs <em class="rfc2119" title=
-        "Keyword in RFC 2119 context">MAY</em> check the new state of the Graph Store for consistency. If inconsistency is detected, such a store <em class="rfc2119" title=
-        "Keyword in RFC 2119 context">MAY</em> return an error to the request.</p>
+        <p>After an update request is completed, a store that performs consistency checking with respect to a particular entailment regime on
+          its graphs MAY check the new state of the Graph Store for consistency. If inconsistency is detected, such a store MAY return an error to the request.</p>
         <p>Also of note is that some stores may be capable of performing entailments with respect to an ontology capable of higher level processing, such as RDFS or OWL. Updates may interact with
         these entailment regimes in these systems.</p>
       </section>
@@ -506,28 +500,27 @@ PREFIX :     &lt;http://example.org/books/&gt;
         and copy graphs).</li>
       </ul>
       <p>A request is a sequence of operations and is terminated by EOF (End of File). Multiple operations are separated by a ';' (semicolon) character. A semicolon after the last operation in a
-      request is optional. Implementations <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> ensure that the operations of a single request are executed in a fashion that guarantees
+      request is optional. Implementations MUST ensure that the operations of a single request are executed in a fashion that guarantees
       the same effects as executing them sequentially in the order they appear in the request.</p>
-      <p>Operations all result either in <em>success</em> or <em>failure</em>. A <em>failure</em> result <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> be accompanied by extra
+      <p>Operations all result either in <em>success</em> or <em>failure</em>. A <em>failure</em> result MAY be accompanied by extra
       information, indicating that some portion of the operations in the request were successful. This document does not stipulate the exact form of the result, as that will be dependent on the
       interface being used, for instance the [[[SPARQL12-PROTOCOL]]] via HTTP or a programmatic API. If multiple operations are present in a single
-      request, then a result of <em>failure</em> from any operation <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> abort the sequence of operations, causing the subsequent
+      request, then a result of <em>failure</em> from any operation MUST abort the sequence of operations, causing the subsequent
       operations to be ignored.</p>
       <p>The formal semantics of the following operations is defined in <a href="#formalModel">Section 4</a> of this document.</p>
       <section id="graphUpdate">
         <h3>Graph Update</h3>
         <p>Graph update operations change existing graphs in the Graph Store but do not explicitly delete nor create them. Non-empty inserts into non-existing graphs will, however,
-        <em>implicitly</em> create those graphs, i.e., an implementation fulfilling an update request <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> silently an automatically
-        create graphs that do not exist before triples are inserted into them, and <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> return with failure if it fails to do so for any
+        <em>implicitly</em> create those graphs, i.e., an implementation fulfilling an update request SHOULD silently an automatically
+        create graphs that do not exist before triples are inserted into them, and MUST return with failure if it fails to do so for any
         reason. (For example, the implementation may have insufficient resources, or an implementation may only provide an update service over a fixed set of graphs and the implicitly created graph
-        is not within this fixed set). An implementation <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> remove graphs that are left empty after triples are removed from them.</p>
-        <p>If a graph is created implicitly by an update operation, then the behavior of the Graph Store <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> be functionally equivalent
+        is not within this fixed set). An implementation MAY remove graphs that are left empty after triples are removed from them.</p>
+        <p>If a graph is created implicitly by an update operation, then the behavior of the Graph Store MUST be functionally equivalent
         to its behavior if the graph had been created explicitly by a CREATE operation.</p>
         <p>SPARQL 1.2 Update provides these graph update operations:</p>
         <ul>
-          <li>The <code><a href="#insertData">INSERT DATA</a></code> operation adds some triples, given inline in the request, into a graph. This <em class="rfc2119" title=
-          "Keyword in RFC 2119 context">SHOULD</em> create the destination graph if it does not exist. If the graph does not exist and it can not be created for any reason, then a failure <em class=
-          "rfc2119" title="Keyword in RFC 2119 context">MUST</em> be returned.</li>
+          <li>The <code><a href="#insertData">INSERT DATA</a></code> operation adds some triples, given inline in the request, into a graph.
+            This SHOULD create the destination graph if it does not exist. If the graph does not exist and it can not be created for any reason, then a failure MUST be returned.</li>
           <li>The <code><a href="#deleteData">DELETE DATA</a></code> operation removes some triples, given inline in the request, if the respective graph contains those.</li>
           <li>The fundamental pattern-based actions for graph updates are <code>INSERT</code> and <code>DELETE</code> (which can co-occur in a single <code><a href=
           "#deleteInsert">DELETE/INSERT</a></code> operation). These actions consist of groups of triples to be deleted and groups of triples to be added. The specification of the triples is based on
@@ -552,10 +545,10 @@ PREFIX :     &lt;http://example.org/books/&gt;
           <p>Variables in <code><em>QuadData</em></code>s are disallowed in <code>INSERT DATA</code> requests (see Notes 8 in the <a data-cite=
           "SPARQL12-QUERY#sparqlGrammar">grammar</a>). That is, the <code>INSERT DATA</code> statement only allows to insert ground triples. Blank nodes in
           <code><em>QuadData</em></code>s are assumed to be disjoint from the blank nodes in the Graph Store, i.e., will be inserted with "fresh" blank nodes.</p>
-          <p>If no graph is described in the <code><em>QuadData</em></code>, then the default graph is presumed. If data is inserted into a graph that does not exist in the Graph Store, it <em class=
-          "rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be created (there may be implementations providing an update service over a fixed set of graphs which in such case <em class=
-          "rfc2119" title="Keyword in RFC 2119 context">MUST</em> return with failure for update requests that insert data into an unallowed graph).</p>
-          <p>Note that a triple <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> be considered to be "processed" with no action if that triple already exists in the graph. Further,
+          <p>If no graph is described in the <code><em>QuadData</em></code>, then the default graph is presumed.
+            If data is inserted into a graph that does not exist in the Graph Store, it SHOULD be created (there may be implementations providing an
+            update service over a fixed set of graphs which in such case MUST return with failure for update requests that insert data into an unallowed graph).</p>
+          <p>Note that a triple MAY be considered to be "processed" with no action if that triple already exists in the graph. Further,
           note that</p>
           <pre class="query nohighlight">INSERT DATA { GRAPH &lt;g&gt; {} } ...</pre>
           <p>does not create <code>&lt;g&gt;</code>. If a user intends to just create a graph, then the graph management operations (<code>CREATE</code>/<code>LOAD</code>) may be used prior to any
@@ -783,8 +776,8 @@ DELETE DATA
           template, since using a new blank node in a <code>DELETE</code> template would lead to nothing being deleted, as a new blank node cannot match anything in the Graph Store. It should be
           noted that this restriction is not in the EBNF for the <a data-cite="SPARQL12-QUERY#rDeleteClause"><code><em>DeleteClause</em></code></a> itself, but made explicit in Note
           9 to the <a data-cite="SPARQL12-QUERY#sparqlGrammar">grammar</a>.</p>
-          <p>If an operation tries to insert into a graph that does not exist, then that graph <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be created; again, there may be
-          implementations providing an update service over a fixed set of graphs which in such case <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> return with failure for update
+          <p>If an operation tries to insert into a graph that does not exist, then that graph SHOULD be created; again, there may be
+          implementations providing an update service over a fixed set of graphs which in such case MUST return with failure for update
           requests that would create an unallowed graph. If no data is to be inserted, then no graph will be created. Particularly, note that</p>
           <pre class="query nohighlight">INSERT ... { GRAPH &lt;g&gt; {} } ...</pre>
           <p>does not create &lt;g&gt;. If a user intends to create a graph regardless of the data to be inserted, then the graph management operations (<code><a href=
@@ -1176,18 +1169,18 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
         </section>
         <section id="load">
           <h4>LOAD</h4>
-          <p>The <code>LOAD</code> operation reads an RDF document from a IRI and inserts its triples into the specified graph in the Graph Store. The specified destination graph <em class="rfc2119"
-          title="Keyword in RFC 2119 context">SHOULD</em> be created if required; again, implementations providing an update service over a fixed set of graphs <em class="rfc2119" title=
-          "Keyword in RFC 2119 context">MUST</em> return with failure for a request that would create a disallowed graph. If the destination graph already exists, then no data in that graph will be
-          removed.</p>
+          <p>The <code>LOAD</code> operation reads an RDF document from a IRI and inserts its triples into the specified graph in the Graph Store.
+            The specified destination graph SHOULD be created if required; again, implementations providing an update service over a fixed set of
+            graphs MUST return with failure for a request that would create a disallowed graph. If the destination graph already exists, then no data in that graph will be
+            removed.</p>
           <pre class="defn nohighlight"><strong>LOAD</strong> ( <strong>SILENT</strong> )? <em><a data-cite=
           "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> ( <strong>INTO GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )?</pre>
           <p><em>IRIref_from</em> specifies the IRI of a document such that a store will be able to identify, locate and read the document. The most common form will be URLs with the <em>http</em>
           IRI schemes. Once the document has been read, the resulting triples will be inserted into the destination graph named by the IRI referred to by <em>IRIref_to</em>.</p>
           <p>If no destination graph IRI (<em>IRIref_to</em>) is provided to load the triples into, then the data will be loaded into the default graph.</p>
           <p>In case no RDF data can be retrieved (as opposed to the empty graph being retrieved) from the IRI denoted by <em>IRIref_from</em>, or in case the retrieval method returns an error (such
-          as, for instance an HTTP error code), the SPARQL 1.2 Update service <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> return failure and the status of the Graph Store
-          <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> remain in the same status as prior to the request; in case the keyword SILENT is present, however, the operation will
+          as, for instance an HTTP error code), the SPARQL 1.2 Update service SHOULD return failure and the status of the Graph Store
+          SHOULD remain in the same status as prior to the request; in case the keyword SILENT is present, however, the operation will
           still return success and the status of the Graph Store is not specified by the present document: implementations may create the destination graph or not and partially load data, in case of
           a transmission error where partial data has been received (which itself may be legal RDF).</p>
         </section>
@@ -1198,8 +1191,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           "SPARQL12-QUERY#rIRIREF">IRIref</a></em> | <strong>DEFAULT</strong> | <strong>NAMED</strong> | <strong>ALL</strong> )</pre>
           <p>Here, the <code>DEFAULT</code> keyword is used to remove all triples in the default graph of the Graph Store, the <code>NAMED</code> keyword is used to remove all triples in all named
           graphs of the Graph Store and the <code>ALL</code> keyword is used to remove all triples in all graphs of the Graph Store. The <code>GRAPH</code> keyword is used to remove all triples from
-          a graph denoted by <code><em>IRIref</em></code>. This operation is not required to remove the empty graphs from the Graph Store, but an implementation <em class="rfc2119" title=
-          "Keyword in RFC 2119 context">MAY</em> decide to do so.</p>
+          a graph denoted by <code><em>IRIref</em></code>. This operation is not required to remove the empty graphs from the Graph Store, but an implementation MAY decide to do so.</p>
           <pre class="defn nohighlight"># Remove all triples from a specified graph.
 <strong>CLEAR GRAPH</strong> <em>IRIref</em> </pre>
           <p>in principle has the same effect as:</p>
@@ -1209,7 +1201,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
             For services which form the default graph from the union of other graphs, <code>CLEAR DEFAULT</code> may have further implications which we
             leave unspecified here.
           </div>
-          <p>If the store records the existence of empty graphs, then the SPARQL 1.2 Update service, by default, <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> return
+          <p>If the store records the existence of empty graphs, then the SPARQL 1.2 Update service, by default, SHOULD return
           <em>failure</em> if the specified graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
           <p>Stores that do not record empty graphs will always return <em>success</em>.</p>
         </section>
@@ -1231,9 +1223,8 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           <h4>CREATE</h4>
           <p>This operation creates a graph in the Graph Store:</p>
           <pre class="defn nohighlight"><strong>CREATE</strong> ( <strong>SILENT</strong> )? <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em></pre>
-          <p>For stores that record empty graphs, this will create a new empty graph in the store with a name specified by the IRI. If the graph already exists, then a <em>failure</em> <em class=
-          "rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> be returned, except when the <code>SILENT</code> keyword is used; in either case, the contents of already existing graphs remain
-          unchanged. If the graph may not be created, then a <em>failure</em> <em class="rfc2119" title="Keyword in RFC 2119 context">MUST</em> be returned, except when the <code>SILENT</code>
+          <p>For stores that record empty graphs, this will create a new empty graph in the store with a name specified by the IRI. If the graph already exists, then a <em>failure</em> SHOULD be returned, except when the <code>SILENT</code> keyword is used; in either case, the contents of already existing graphs remain
+          unchanged. If the graph may not be created, then a <em>failure</em> MUST be returned, except when the <code>SILENT</code>
           keyword is used.</p>
           <p>Stores that do not record empty named graphs will always return <em>success</em> on creation of a non-existing graph.</p>
         </section>
@@ -1244,9 +1235,8 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           <p>The <code>DROP</code> operation removes the specified graph(s) from the Graph Store. The <code>GRAPH</code> keyword is used to remove a graph denoted by <code><em>IRIref</em></code>, the
           <code>DEFAULT</code> keyword is used to remove the default graph from the Graph Store, the <code>NAMED</code> keyword is used to remove all named graphs from the Graph Store, and the
           <code>ALL</code> keyword is used to remove all graphs from the Graph Store, i.e., resetting the store. After successful completion of this operation, the specified graphs are no longer
-          available for further graph update operations. However, in case the <code>DEFAULT</code> graph of the Graph Store is dropped, implementations <em class="rfc2119" title=
-          "Keyword in RFC 2119 context">MUST</em> restore it after it was removed, i.e., <code>DROP DEFAULT</code> is equivalent to <code><a href="#clear">CLEAR DEFAULT</a></code>.</p>
-          <p>If the store records the existence of empty graphs, then the SPARQL 1.2 Update service, by default, <em class="rfc2119" title="Keyword in RFC 2119 context">SHOULD</em> return
+          available for further graph update operations. However, in case the <code>DEFAULT</code> graph of the Graph Store is dropped, implementations MUST restore it after it was removed, i.e., <code>DROP DEFAULT</code> is equivalent to <code><a href="#clear">CLEAR DEFAULT</a></code>.</p>
+          <p>If the store records the existence of empty graphs, then the SPARQL 1.2 Update service, by default, SHOULD return
           <em>failure</em> if the specified named graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
           <p>Stores that do not record empty graphs will always return <em>success</em>.</p>
         </section>
@@ -1265,7 +1255,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
           <p>The difference between <code>COPY</code> and the <code>DROP/INSERT</code> combination is that if <code>COPY</code> is used to copy a graph onto itself then no operation will be performed
           and the data will be left as it was. Using <code>DROP/INSERT</code> in this situation would result in an empty graph.</p>
-          <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
+          <p>If the destination graph does not exist, it will be created. By default, the service MAY return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
           <p><strong>Example 16:</strong></p>
           <p><span class="doc-ref" id="example_16"></span>This example request copies all statements from the default graph to a named graph:</p>
@@ -1310,7 +1300,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 DROP</strong> ( <strong>GRAPH</strong> <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> | <strong>DEFAULT</strong>)</pre>
           <p>The difference between <code>MOVE</code> and the <code>DROP/INSERT/DROP</code> combination is that if <code>MOVE</code> is used to move a graph onto itself then no operation will be
           performed and the data will be left as it was. Using <code>DROP/INSERT/DROP</code> in this situation would result in the graph being removed.</p>
-          <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
+          <p>If the destination graph does not exist, it will be created. By default, the service MAY return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
           <p><strong>Example 17:</strong></p>
           <p><span class="doc-ref" id="example_17"></span>This example request moves all statements from the default graph into a named graph:</p>
@@ -1349,7 +1339,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           <pre class="query nohighlight"><strong>INSERT</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
           "SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )? <strong>{ ?s ?p ?o } } WHERE</strong> { ( <strong>GRAPH</strong> <em><a data-cite=
           "SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> )? <strong>{ ?s ?p ?o } }</strong></pre>
-          <p>If the destination graph does not exist, it will be created. By default, the service <em class="rfc2119" title="Keyword in RFC 2119 context">MAY</em> return <em>failure</em> if the input
+          <p>If the destination graph does not exist, it will be created. By default, the service MAY return <em>failure</em> if the input
           graph does not exist. If <code>SILENT</code> is present, the result of the operation will always be success.</p>
           <p><strong>Example 18:</strong></p>
           <p><span class="doc-ref" id="example_18"></span>This example request adds all statements from the default graph to a named graph:</p>
