@@ -1607,12 +1607,31 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           <h4>Load Operation</h4>
           <div class="defn">
             <p><strong><span class="doc-ref" id="defn_loadOperation">Definition: Load Operation</span></strong></p>
-            <p>A <a href="#load">Load Operation</a> OpLoad is an Update Operation in which new triples (from a remote graph) are added in the Graph Store, either in the default slot or in a named
-            slot, if specified.</p>
-            <p>OpLoad ( GS, <em>documentIRI</em>) = Dataset-UNION ( GS, { graph ( <em>documentIRI</em> ) } )</p>
-            <p>OpLoad ( GS, <em>documentIRI</em>, <em>iri</em> ) = Dataset-UNION(GS, { {}, ( <em>iri</em>, graph ( <em>documentIRI</em> ) ) } )</p>
-            <p>where graph(<em>documentIRI</em>) is a function returning the RDF graph serialized by the RDF document retrieved from IRI <em>documentIRI</em>, where blank nodes present in the
-            retrieved graph are supposed to be "standardized apart"; i.e., blank nodes from a loaded graph need to be disjoint with the blank nodes already present in the Graph Store GS.</p>
+            <p>
+              A <a href="#load">Load Operation</a> OpLoad is an Update Operation in which new
+              triples (from a remote graph or dataset) are added in the Graph Store, either in the
+              default slot or in a named slot, if specified.
+            </p>
+
+            <p>OpLoad ( GS, <em>documentIRI</em>) = dataset-merge ( GS, dataset ( <em>documentIRI</em> ) } )</p>
+
+            <p>OpLoad ( GS, <em>documentIRI</em>, <em>iri</em> ) = dataset-merge(GS, { {}, ( <em>iri</em>, graph ( <em>documentIRI</em> ) ) } )</p>
+
+            <p>where</p>
+            <ul>
+              <li>The operation "dataset ( <em>documentIRI</em> )" is a function returning the RDF dataset serialized by the
+                RDF document</li>
+              <li>The operation "graph ( <em>documentIRI</em> )" is a function returning the RDF graph serialized by the
+                RDF document</li>
+              <li>
+                The operation <a data-cite="RDF12-SEMANTICS#dfn-rdf-dataset-merge">dataset-merge</a>
+                combines the Graph Store GS with the given dataset constructed as shown
+              </li>
+            </ul>
+            <p>Blank nodes present in the retrieved graph or dataset are "standardized apart"; i.e.,
+              blank nodes from a loaded graph or dataset need to be disjoint with the blank nodes
+              already present in the Graph Store GS.
+            </p>
           </div>
         </section>
         <section id="def_clearOperation">
