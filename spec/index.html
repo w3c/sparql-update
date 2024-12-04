@@ -1168,17 +1168,17 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
         <section id="load">
           <h4>LOAD</h4>
           <p>
-            The `LOAD` operation reads an RDF document from a IRI and inserts triples
-            into the graphs of the dataset in the  <a href="#defn_graphStore">Graph Store</a>.
+            The `LOAD` operation reads an RDF document from an IRI and inserts triples
+            from the document into the <a href="#defn_graphStore">Graph Store</a>.
           </p>
 
           <pre class="defn nohighlight"><strong>LOAD</strong> ( <strong>SILENT</strong> )? <em><a
             data-cite="SPARQL12-QUERY#rIRIREF">IRIref_from</a></em> ( <strong>INTO GRAPH</strong> <em><a
             data-cite="SPARQL12-QUERY#rIRIREF">IRIref_to</a></em> )?</pre>
 
-          <p><em>IRIref_from</em> specifies the IRI of a document such that a store will be able to
-            identify, locate and read the document. The most common form of IRIs will be URLs with
-            the https and http IRI schemes.
+          <p><em>IRIref_from</em> specifies the IRI of a document, such that a store will be able to
+            identify, locate, and read the document. The most common IRIs will be URLs in
+            the `https` and `http` IRI schemes.
           </p>
 
           <p>If a destination graph (<i>IRIref_to</i>) is specified by `INTO GRAPH`, then the
@@ -1190,10 +1190,10 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
             <a data-cite="RDF12-CONCEPTS#dfn-rdf-graph">RDF Graph</a>.
             This graph is
             <a data-cite="RDF12-SEMANTICS#dfn-merging">merged</a> into the destination
-            graph in the graph store..
+            graph in the graph store.
           </p>
           <p>
-            If no destination graph IRI is specified by `INTO`, then the RDF document is retrived
+            If no destination graph IRI is specified by `INTO`, then the RDF document is retrieved
             and parsed into an <a data-cite="RDF12-CONCEPTS#dfn-rdf-dataset">RDF Dataset</a>. 
             This dataset is <a data-cite="RDF12-SEMANTICS#dfn-rdf-dataset-merge">merged</a> into the
             <a href="#defn_graphStore">graph store</a> viewed as a mutable
@@ -1201,25 +1201,22 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           </p>
 
           <p>
-            In the case where no RDF data can be retrieved (as opposed to the empty graph being retrieved)
-            from the IRI denoted by <em>IRIref_from</em>, or in case the retrieval method returns an
-            error (such as, for instance an HTTP error code), the SPARQL 1.2 Update service SHOULD
-            return failure and the status of the Graph Store SHOULD remain in the same status as
-            prior to the request; in case the keyword `SILENT` is present, however, the
-            operation will still return success and the status of the Graph Store is not specified
-            by the present document: implementations may create the destination graph or not and
-            partially load data, in case of a transmission error where partial data has been
-            received (which itself may be legal RDF).
+            If no RDF data can be retrieved (as opposed to an empty graph being retrieved) from the
+            IRI denoted by <em>IRIref_from</em>, or in case the retrieval method returns an error
+            (such as, for instance an HTTP error code), the SPARQL 1.2 Update service SHOULD return
+            failure and the status of the Graph Store SHOULD remain in the same status as prior to
+            the request. However, if the the keyword `SILENT` is present, operation will return
+            success, rather than failure, and the status of the Graph Store is is not specified.
           </p>
 
           <div class="note" id="context-triples">
             <p>
-              Some RDF syntaxes, such as [[[JSON-LD11]]], is often used for data which
-              is a single graph, with no graph name. [[[RDF12-N-QUADS]]] may be used as a
+              Some RDF syntaxes, such as [[[JSON-LD11]]], are often used to serialize
+              a single graph with no graph name.
+              [[[RDF12-N-QUADS]]] may be used as a
               database dump format for a triple store with the data only in the default graph.
-              In both cases, this is not known until the entire RDF document content is parsed. 
               When the `LOAD` operation has an `INTO GRAPH` clause, it is an error if
-              named graphs are encountered.
+              named graphs are encountered when parsing the RDF document.
             </p>
           </div>
         </section>
@@ -1608,8 +1605,8 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           <div class="defn">
             <p><strong><span class="doc-ref" id="defn_loadOperation">Definition: Load Operation</span></strong></p>
             <p>
-              A <a href="#load">Load Operation</a> OpLoad is an Update Operation in which new
-              triples (from a remote graph or dataset) are added in the Graph Store, either in the
+              A <a href="#load">Load Operation</a> `OpLoad` is an Update Operation in which new
+              triples (from a remote graph or dataset) are added to the Graph Store, either in the
               default slot or in a named slot, if specified.
             </p>
 
@@ -1619,18 +1616,21 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 
             <p>where</p>
             <ul>
-              <li>The operation "dataset ( <em>documentIRI</em> )" is a function returning the RDF dataset serialized by the
-                RDF document</li>
-              <li>The operation "graph ( <em>documentIRI</em> )" is a function returning the RDF graph serialized by the
-                RDF document</li>
+              <li>The operation <code>dataset ( <em>documentIRI</em> )</code> is a function
+                returning the RDF dataset serialized by the RDF document</li>
+              <li>The operation <code>graph ( <em>documentIRI</em> )</code> is a function
+                returning the RDF graph serialized by the RDF document</li>
               <li>
-                The operation <a data-cite="RDF12-SEMANTICS#dfn-rdf-dataset-merge">dataset-merge</a>
-                combines the Graph Store GS with the given dataset constructed as shown
+                The operation `dataset-merge` combines the Graph Store GS with the given
+                dataset using the 
+                <a data-cite="RDF12-SEMANTICS#dfn-rdf-dataset-merge">dataset merge operation</a>
               </li>
             </ul>
-            <p>Blank nodes present in the retrieved graph or dataset are "standardized apart"; i.e.,
-              blank nodes from a loaded graph or dataset need to be disjoint with the blank nodes
-              already present in the Graph Store GS.
+            <p>
+              Blank nodes present in the retrieved graph or dataset are
+              "standardized apart"; i.e., blank nodes from a loaded graph or
+              dataset are disjoint from the blank nodes already present in the
+              Graph Store GS.
             </p>
           </div>
         </section>
