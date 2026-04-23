@@ -508,7 +508,7 @@ PREFIX :     &lt;http://example.org/books/&gt;
       <section id="graphUpdate">
         <h3>Graph Update</h3>
         <p>Graph update operations change existing graphs in the Graph Store but do not explicitly delete nor create them. Non-empty inserts into non-existing graphs will, however,
-        <em>implicitly</em> create those graphs, i.e., an implementation fulfilling an update request SHOULD silently an automatically
+        <em>implicitly</em> create those graphs, i.e., an implementation fulfilling an update request SHOULD silently and automatically
         create graphs that do not exist before triples are inserted into them, and MUST return with failure if it fails to do so for any
         reason. (For example, the implementation may have insufficient resources, or an implementation may only provide an update service over a fixed set of graphs and the implicitly created graph
         is not within this fixed set). An implementation MAY remove graphs that are left empty after triples are removed from them.</p>
