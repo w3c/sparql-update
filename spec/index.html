@@ -593,34 +593,34 @@ PREFIX ns: &lt;http://example.org/ns#&gt;
 &lt;http://example/book1&gt; ns:price 42 .
 </pre>
 
-          <p><strong>Example 3: Adding a reifying triple</strong></p>
-          <p><span class="doc-ref" id="example_insert_reifying"></span>
-              When inserting triples containing <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triples</a>,
-              these reifying triples are not automatically inserted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+          <p><strong>Example 3: Adding a triple term</strong></p>
+          <p><span class="doc-ref" id="example_insert_triple_term"></span>
+              When inserting triples containing <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple terms</a>,
+              these triple terms are not automatically inserted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
               In other words, when executing the <code><a href="#insertData">INSERT DATA</a></code> operation below,
               the default graph will <em>not</em> contain the triple <code>:bob :age 23</code>.
           </p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 INSERT DATA
-{ :alice :claims &lt;&lt; :bob :age 23 &gt;&gt; . }
+{ :alice :claims &lt;&lt;( :bob :age 23 ))>> . }
 </pre>
           <p>Data before is the empty graph.</p>
           <p>Data after:</p>
           <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
+:alice :claims &lt;&lt;( :bob :age 23 ))>> .
 </pre>
-          <p>If a <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triple</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
+          <p>If a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
               then it needs to be explicitly inserted, through an operation like the following <code><a href="#insertData">INSERT DATA</a></code>.</p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 INSERT DATA
 {
-  :alice :claims &lt;&lt; :bob :age 23 &gt;&gt;.
+  :alice :claims &lt;&lt;( :bob :age 23 ))>>.
   :bob :age 23.
 }
 </pre>
           <p>Data after:</p>
           <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
+:alice :claims &lt;&lt;( :bob :age 23 ))>> .
 :bob :age 23 .
 </pre>
 
@@ -682,10 +682,10 @@ PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 </pre>
 
-          <p><strong>Example 6: Removing a reifying triple</strong></p>
+          <p><strong>Example 6: Removing a triple term</strong></p>
           <p><span class="doc-ref" id="example_delete_reifying"></span>
-              When deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triples</a>,
-              these reifying triples are not automatically deleted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+              When deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple terms</a>,
+              these triple terms are not automatically deleted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
               In other words, when executing the <code><a href="#deleteData">DELETE DATA</a></code> operation below,
               the default graph will still contain the triple <code>:bob :age 23</code>
               if it was previously present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>.
@@ -693,12 +693,12 @@ PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 DELETE DATA
 {
-  :alice :claims &lt;&lt; :bob :age 23 &gt;&gt;.
+  :alice :claims <<( :bob :age 23 )>>;.
 }
 </pre>
           <p>Data before:</p>
           <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt; :bob :age 23 &gt;&gt; .
+:alice :claims <<( :bob :age 23 )>> .
 :bob :age 23 .
 </pre>
           <p>Data after:</p>
@@ -706,7 +706,7 @@ DELETE DATA
 :bob :age 23 .
 </pre>
           <p>In contrast, deleting an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a> with the request shown below
-             would <em>not</em> delete any triple containing this triple as a <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triple</a>.</p>
+             would <em>not</em> delete any triple containing this triple as a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a>.</p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 DELETE DATA
 {
@@ -814,18 +814,18 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 &lt;http://example/president42&gt; foaf:familyName "Clinton" .
 </pre>
 
-          <p><strong>Example 8: Updating reifying triples</strong></p>
+          <p><strong>Example 8: Updating triple terms</strong></p>
           <p><span class="doc-ref" id="example_update_reified"></span>
               Just like with the <code><a href="#insertData">INSERT DATA</a></code> and <code><a href="#deleteData">DELETE DATA</a></code> operations,
-              inserting or deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triples</a> does not automatically
+              inserting or deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple terms</a> does not automatically
               impact <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
               It is still possible to impact such triples by explicitly asserting them, as shown below.
           </p>
           <pre class="query nohighlight">PREFIX :  &lt;http://www.example.org/&gt;
 
-DELETE { :alice ?pp &lt;&lt; ?s ?p ?o &gt;&gt; . }
-INSERT { :carol ?pp &lt;&lt; ?s ?p ?o &gt;&gt; .  ?s ?p ?o .}
-WHERE {  :alice ?pp &lt;&lt; ?s ?p ?o &gt;&gt; . } </pre>
+DELETE { :alice ?pp <<( ?s ?p ?o )>> . }
+INSERT { :carol ?pp <<( ?s ?p ?o )>> .  ?s ?p ?o .}
+WHERE {  :alice ?pp <<( ?s ?p ?o )>> . } </pre>
 
           <section id="delete">
             <h5>DELETE (Informative)</h5>
@@ -1906,7 +1906,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
       <h2>Changes between SPARQL 1.1 Update and SPARQL 1.2 Update</h2>
       <ul>
         <li>Use Media Type language instead of MIME Type in <a href="#mediaType" class="sectionRef"></a></li>
-        <li>Add reifying triples examples in <a href="#insertData" class="sectionRef"></a>, <a href="#deleteData" class="sectionRef"></a>, and <a href="#delete" class="sectionRef"></a></li>
+        <li>Add triple terms examples in <a href="#insertData" class="sectionRef"></a>, <a href="#deleteData" class="sectionRef"></a>, and <a href="#delete" class="sectionRef"></a></li>
         
         <li>Use PREFIX instead of @prefix in all Turtle examples</li>
         <li>Revise `LOAD` description and definition for handling RDF documents which contain a dataset</li>
