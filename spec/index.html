@@ -600,27 +600,47 @@ PREFIX ns: &lt;http://example.org/ns#&gt;
               In other words, when executing the <code><a href="#insertData">INSERT DATA</a></code> operation below,
               the default graph will <em>not</em> contain the triple <code>:bob :age 23</code>.
           </p>
+          <pre class="query nohighlight">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX : &lt;http://www.example.org/&gt;
+INSERT DATA {
+    [] :claimedBy :alice ;
+        rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
+}
+</pre>
+          <p>The same example can also be written using the <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triple</a> syntax:</p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
-INSERT DATA
-{ :alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt; . }
+INSERT DATA {
+    &lt;&lt; :bob :age 23 &gt;&gt; :claimedBy :alice .
+}
 </pre>
           <p>Data before is the empty graph.</p>
           <p>Data after:</p>
-          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt; .
+          <pre class="data">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX : &lt;http://www.example.org/&gt;
+[] :claimedBy :alice ;
+   rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
 </pre>
           <p>If a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
               then it needs to be explicitly inserted, through an operation like the following <code><a href="#insertData">INSERT DATA</a></code>.</p>
+          <pre class="query nohighlight">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX : &lt;http://www.example.org/&gt;
+INSERT DATA {
+    [] :claimedBy :alice ;
+        rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
+    :bob :age 23 .
+}
+</pre>
+          <p>The same example can also be written using the <a data-cite="SPARQL12-QUERY#dfn-annotation-syntax">annotation syntax</a>:</p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
-INSERT DATA
-{
-  :alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt;.
-  :bob :age 23.
+INSERT DATA {
+    :bob :age 23 {| :claimedBy :alice |} .
 }
 </pre>
           <p>Data after:</p>
-          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt; .
+          <pre class="data">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX : &lt;http://www.example.org/&gt;
+[] :claimedBy :alice ;
+    rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
 :bob :age 23 .
 </pre>
 
@@ -690,15 +710,25 @@ PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
               the default graph will still contain the triple <code>:bob :age 23</code>
               if it was previously present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>.
           </p>
+          <pre class="query nohighlight">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX : &lt;http://www.example.org/&gt;
+DELETE DATA {
+    :claim1 :claimedBy :alice ;
+        rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
+}
+</pre>
+            <p>The same example can also be written using the <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triple</a> syntax:</p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
-DELETE DATA
-{
-  :alice :claims &lt;&lt;( :bob :age 23 )&gt;&gt;.
+DELETE DATA {
+    &lt;&lt; :bob :age 23 ~ :claim1 &gt;&gt; :claimedBy :alice .
 }
 </pre>
           <p>Data before:</p>
-          <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt;( :bob :age 23 )&gt;&gt; .
+          <pre class="data">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX : &lt;http://www.example.org/&gt;
+
+:claim1 :claimedBy :alice ;
+    rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
 :bob :age 23 .
 </pre>
           <p>Data after:</p>
@@ -821,12 +851,18 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
               impact <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
               It is still possible to impact such triples by explicitly asserting them, as shown below.
           </p>
-          <pre class="query nohighlight">PREFIX :  &lt;http://www.example.org/&gt;
+          <pre class="query nohighlight">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX :  &lt;http://www.example.org/&gt;
 
-DELETE { :alice ?pp &lt;&lt;( ?s ?p ?o )&gt;&gt; . }
-INSERT { :carol ?pp &lt;&lt;( ?s ?p ?o )&gt;&gt; .  ?s ?p ?o .}
-WHERE {  :alice ?pp &lt;&lt;( ?s ?p ?o )&gt;&gt; . } </pre>
+DELETE { ?claim rdf:reifies &lt;&lt;( ?s ?p ?o )&gt;&gt; ; ?pp :alice . }
+INSERT { ?claim rdf:reifies &lt;&lt;( ?s ?p ?o )&gt;&gt; ; ?pp :carol . ?s ?p ?o . }
+WHERE { ?claim rdf:reifies &lt;&lt;( ?s ?p ?o )&gt;&gt; ; ?pp :alice . }</pre>
+          <p>The same example can also be written using shorter notations:</p>
+            <pre class="query nohighlight">PREFIX :  &lt;http://www.example.org/&gt;
 
+DELETE { &lt;&lt; ?s ?p ?o ~ ?claim &gt;&gt; ?pp :alice }
+INSERT { ?s ?p ?o ~ ?claim {| ?pp :carol |} }
+WHERE { &lt;&lt; ?s ?p ?o ~ ?claim &gt;&gt; ?pp :alice }</pre>
           <section id="delete">
             <h5>DELETE (Informative)</h5>
             <pre class="defn nohighlight">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
