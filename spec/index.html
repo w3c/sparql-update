@@ -602,25 +602,25 @@ PREFIX ns: &lt;http://example.org/ns#&gt;
           </p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 INSERT DATA
-{ :alice :claims &lt;&lt;( :bob :age 23 ))>> . }
+{ :alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt; . }
 </pre>
           <p>Data before is the empty graph.</p>
           <p>Data after:</p>
           <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt;( :bob :age 23 ))>> .
+:alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt; .
 </pre>
           <p>If a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
               then it needs to be explicitly inserted, through an operation like the following <code><a href="#insertData">INSERT DATA</a></code>.</p>
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 INSERT DATA
 {
-  :alice :claims &lt;&lt;( :bob :age 23 ))>>.
+  :alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt;.
   :bob :age 23.
 }
 </pre>
           <p>Data after:</p>
           <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims &lt;&lt;( :bob :age 23 ))>> .
+:alice :claims &lt;&lt;( :bob :age 23 ))&gt;&gt; .
 :bob :age 23 .
 </pre>
 
@@ -693,12 +693,12 @@ PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
           <pre class="query nohighlight">PREFIX : &lt;http://www.example.org/&gt;
 DELETE DATA
 {
-  :alice :claims <<( :bob :age 23 )>>.
+  :alice :claims &lt;&lt;( :bob :age 23 )&gt;&gt;.
 }
 </pre>
           <p>Data before:</p>
           <pre class="data">PREFIX : &lt;http://www.example.org/&gt;
-:alice :claims <<( :bob :age 23 )>> .
+:alice :claims &lt;&lt;( :bob :age 23 )&gt;&gt; .
 :bob :age 23 .
 </pre>
           <p>Data after:</p>
@@ -823,9 +823,9 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           </p>
           <pre class="query nohighlight">PREFIX :  &lt;http://www.example.org/&gt;
 
-DELETE { :alice ?pp <<( ?s ?p ?o )>> . }
-INSERT { :carol ?pp <<( ?s ?p ?o )>> .  ?s ?p ?o .}
-WHERE {  :alice ?pp <<( ?s ?p ?o )>> . } </pre>
+DELETE { :alice ?pp &lt;&lt;( ?s ?p ?o )&gt;&gt; . }
+INSERT { :carol ?pp &lt;&lt;( ?s ?p ?o )&gt;&gt; .  ?s ?p ?o .}
+WHERE {  :alice ?pp &lt;&lt;( ?s ?p ?o )&gt;&gt; . } </pre>
 
           <section id="delete">
             <h5>DELETE (Informative)</h5>
