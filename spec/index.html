@@ -593,10 +593,10 @@ PREFIX ns: &lt;http://example.org/ns#&gt;
 &lt;http://example/book1&gt; ns:price 42 .
 </pre>
 
-          <p><strong>Example 3: Adding a triple term</strong></p>
+          <p><strong>Example 3: Adding a triple containing a triple term</strong></p>
           <p><span class="doc-ref" id="example_insert_triple_term"></span>
-              When inserting triples containing <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple terms</a>,
-              the triple of the triple term is not automatically inserted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+              Inserting a triple containing a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a>
+              does not automatically assert the triple represented by that term.
               In other words, when executing the <code><a href="#insertData">INSERT DATA</a></code> operation below,
               the default graph will <em>not</em> contain the triple <code>:bob :age 23</code>.
           </p>
@@ -620,8 +620,8 @@ PREFIX : &lt;http://www.example.org/&gt;
 [] :claimedBy :alice ;
    rdf:reifies &lt;&lt;( :bob :age 23 )&gt;&gt; .
 </pre>
-          <p>If a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a> is to be present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>,
-              then it needs to be explicitly inserted, through an operation like the following <code><a href="#insertData">INSERT DATA</a></code>.</p>
+          <p>To also assert the triple represented by the <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a>,
+              explicitly insert that triple, as shown in the following <code><a href="#insertData">INSERT DATA</a></code> operation.</p>
           <pre class="query nohighlight">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 PREFIX : &lt;http://www.example.org/&gt;
 INSERT DATA {
@@ -702,10 +702,10 @@ PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 </pre>
 
-          <p><strong>Example 6: Removing a triple term</strong></p>
+          <p><strong>Example 6: Removing a triple containing a triple term</strong></p>
           <p><span class="doc-ref" id="example_delete_reifying"></span>
-              When deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple terms</a>,
-              these triple terms are not automatically deleted as <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
+              Deleting a triple containing a <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple term</a>
+              does not automatically delete the <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a> represented by that term.
               In other words, when executing the <code><a href="#deleteData">DELETE DATA</a></code> operation below,
               the default graph will still contain the triple <code>:bob :age 23</code>
               if it was previously present as an <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triple</a>.
@@ -743,6 +743,11 @@ DELETE DATA
   :bob :age 23 .
 }
 </pre>
+            <p class="note">
+              Blank nodes are not allowed in <code>DELETE DATA</code>.
+              Consequently, <code>DELETE DATA</code> cannot delete a <a data-cite="RDF12-CONCEPTS#dfn-reifying-triple">reifying triple</a> whose subject is a blank node.
+              Use <a href="#deleteWhere"><code>DELETE WHERE</code></a> or <a href="#deleteInsert"><code>DELETE/INSERT</code></a> with a variable bound to the blank node instead.
+            </p>
 
         </section>
         <section id="deleteInsert">
@@ -844,12 +849,12 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
 &lt;http://example/president42&gt; foaf:familyName "Clinton" .
 </pre>
 
-          <p><strong>Example 8: Updating triple terms</strong></p>
+          <p><strong>Example 8: Updating triples containing triple terms</strong></p>
           <p><span class="doc-ref" id="example_update_reified"></span>
-              Just like with the <code><a href="#insertData">INSERT DATA</a></code> and <code><a href="#deleteData">DELETE DATA</a></code> operations,
+              As with <code><a href="#insertData">INSERT DATA</a></code> and <code><a href="#deleteData">DELETE DATA</a></code>,
               inserting or deleting triples containing <a data-cite="RDF12-CONCEPTS#dfn-triple-term">triple terms</a> does not automatically
-              impact <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a>.
-              It is still possible to impact such triples by explicitly asserting them, as shown below.
+              insert or delete the <a data-cite="RDF12-CONCEPTS#dfn-asserted-triple">asserted triples</a> they represent.
+              The following operation changes the claim's attribution from Alice to Carol and explicitly inserts the represented triple.
           </p>
           <pre class="query nohighlight">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 PREFIX :  &lt;http://www.example.org/&gt;
@@ -863,6 +868,10 @@ WHERE { ?claim rdf:reifies &lt;&lt;( ?s ?p ?o )&gt;&gt; ; ?pp :alice . }</pre>
 DELETE { &lt;&lt; ?s ?p ?o ~ ?claim &gt;&gt; ?pp :alice }
 INSERT { ?s ?p ?o ~ ?claim {| ?pp :carol |} }
 WHERE { &lt;&lt; ?s ?p ?o ~ ?claim &gt;&gt; ?pp :alice }</pre>
+            <p class="note">
+              The <code>WHERE</code> clause binds the reifier to <code>?claim</code>, which is then used in the <code>DELETE</code> and <code>INSERT</code> templates.
+              Specifying <code>?claim</code> explicitly avoids an implicit blank node in the <code>DELETE</code> template, where blank-node syntax is forbidden.
+            </p>
           <section id="delete">
             <h5>DELETE (Informative)</h5>
             <pre class="defn nohighlight">( <strong>WITH</strong>  <em><a data-cite="SPARQL12-QUERY#rIRIREF">IRIref</a></em> )?
@@ -1942,7 +1951,7 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
       <h2>Changes between SPARQL 1.1 Update and SPARQL 1.2 Update</h2>
       <ul>
         <li>Use Media Type language instead of MIME Type in <a href="#mediaType" class="sectionRef"></a></li>
-        <li>Add triple terms examples in <a href="#insertData" class="sectionRef"></a>, <a href="#deleteData" class="sectionRef"></a>, and <a href="#delete" class="sectionRef"></a></li>
+        <li>Add examples using triple terms in <a href="#insertData" class="sectionRef"></a>, <a href="#deleteData" class="sectionRef"></a>, and <a href="#deleteInsert" class="sectionRef"></a></li>
         
         <li>Use PREFIX instead of @prefix in all Turtle examples</li>
         <li>Revise `LOAD` description and definition for handling RDF documents which contain a dataset</li>
