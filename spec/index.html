@@ -1911,7 +1911,16 @@ PREFIX foaf:  &lt;http://xmlns.com/foaf/0.1/&gt;
           <dt>Required parameters:</dt>
           <dd>None</dd>
           <dt>Optional parameters:</dt>
-          <dd>None</dd>
+          <dd>
+            <dl>
+              <dt><code>version</code></dt>
+              <dd>
+                If present, acceptable values of <code>version</code> are defined in
+                <a data-cite="SPARQL12-QUERY#versionLabels">Version Labels</a>
+                in [[[SPARQL12-QUERY]]].
+              </dd>
+            </dl>
+          </dd>
           <dt>Encoding considerations:</dt>
           <dd>The syntax of the SPARQL Update Language is expressed over code points in Unicode [[UNICODE]]. The encoding is always UTF-8 [[RFC3629]].</dd>
           <dd>Unicode code points may also be expressed using an \uXXXX (U+0 to U+FFFF) or \UXXXXXXXX syntax (for U+10000 onwards) where X is a hexadecimal digit [0-9A-F]</dd>
