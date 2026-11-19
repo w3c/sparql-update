@@ -1095,7 +1095,7 @@ DELETE
  { ?book ?p ?v }
 WHERE
  { ?book dc:date ?date ;
-         dc:type dcmitype:PhysicalObject .
+         a dcmitype:PhysicalObject .
    FILTER ( ?date &lt; "2000-01-01T00:00:00-02:00"^^xsd:dateTime )
    ?book ?p ?v
  }
@@ -1104,6 +1104,7 @@ WHERE
             <pre class="data"><strong># Graph: http://example/bookStore</strong>
 PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1996-01-01T00:00:00-02:00"^^xsd:dateTime .
@@ -1123,6 +1124,7 @@ PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
             <pre class="data"><strong># Graph: http://example/bookStore2</strong>
 PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
 PREFIX dcmitype: &lt;http://purl.org/dc/dcmitype/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
 &lt;http://example/book1&gt; dc:title "Fundamentals of Compiler Design" .
 &lt;http://example/book1&gt; dc:date "1996-01-01T00:00:00-02:00"^^xsd:dateTime .
